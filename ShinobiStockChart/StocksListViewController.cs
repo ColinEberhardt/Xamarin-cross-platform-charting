@@ -5,103 +5,44 @@ using MonoTouch.UIKit;
 using System.Collections.Generic;
 using System.Net;
 using System.Linq;
+using ShinobiStockChart.Model;
+using ShinobiStockChart.Presenter;
 
 namespace ShinobiStockChart
 {
     /// <summary>
     /// A view controller that renders a list of stocks frm the FTSE 100 index.
     /// </summary>
-    public partial class StocksListViewController : UIViewController
+    public partial class StocksListViewController : UIViewController, StockPriceListPresenter.View
     {
-        private string FTSE100 = "AAL.L,ABF.L,ADM.L,AGK.L,AMEC.L,ANTO.L,ARM.L,AU.L,AV.L,AZN.L,BA.L,BARC.L,BATS.L,BG.L,BLND.L,BLT.L,BP.L,BRBY.L,BSY.L,BT-A.L,CCL.L,CNA.L,CNE.L,CPG.L,CPI.L,CSCG.L,DGE.L,EMG.L,ENRC.L,ESSR.L,EXPN.L,FRES.L,GFS.L,GKN.L,GLEN.L,GSK.L,HL.L,HMSO.L,HSBA.L,IAG.L,IAP.L,IHG.L,III.L,IMI.L,IMT.L,INVP.L,IPR.L,ISAT.L,ITRK.L,ITV.L,JMAT.L,KAZ.L,KGF.L,LAND.L,LGEN.L,LLOY.L,LMI.L,MKS.L,MRW.L,NG.L,NXT.L,OML.L,PFC.L,PRU.L,PSON.L,RB.L,RBS.L,RDSA.L,RDSB.L,REX.L,RIO.L,RR.L,RRS.L,RSA.L,RSL.L,SAB.L,SBRY.L,SDR.L,SDRC.L,SGE.L,SHP.L,SL.L,SMIN.L,SN.L,SRP.L,SSE.L,STAN.L,SVT.L,TATE.L,TLW.L,TSCO.L,ULVR.L,UU.L,VED.L,VOD.L,WEIR.L,WG.L,WOS.L,WPP.L,WTB.L,XTA.L";
-        // a data item that represents a single stock
-        private class StockItem
+        #region View implementation
+
+        public event EventHandler<StockSelectedEventArgs> StockSelected  = delegate { };
+
+        public void SetStockPrices (List<StockItem> prices)
         {
-            public StockItem (string symbol)
-            {
-                Price = double.NaN;
-                Symbol = symbol;
-            }
-
-            public string Symbol { get; private set; }
-
-            public double Price { get; set; }
-
-            public double Change { get; set; }
-        }
-
-        // the list of socks
-        private List<StockItem> _stocks = new List<StockItem> ();
-
-        public StocksListViewController () : base ("StocksListViewController", null)
-        {
-            Title = "FTSE 100";
-      
-            // generate the stock data items from a CSV list
-            var symbols = FTSE100.Split (',');
-            foreach (var symbol in symbols) {
-                _stocks.Add (new StockItem (symbol));
-            }
-      
-            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-      
-            FetchQuotes ();
-        }
-
-        public override void ViewDidLoad ()
-        {
-            base.ViewDidLoad ();      
-      
             // set the UITableView source / delegate
-            stockListTable.Source = new TableSource (this.NavigationController, _stocks);
+            stockListTable.Source = new TableSource (this, prices);
+            stockListTable.ReloadData ();
         }
 
-        /// <summary>
-        /// Fetches the current stock quote from Yahoo
-        /// </summary>
-        private void FetchQuotes ()
+        #endregion
+
+        private StockPriceListPresenter _presenter;
+
+        public StocksListViewController (StockPriceListPresenter presenter) : base ("StocksListViewController", null)
         {
-            string url = "http://finance.yahoo.com/d/quotes.csv?f=sac1k&s=";      
-            url += string.Join ("+", _stocks.Select (s => s.Symbol));
-      
-            WebClient client = new WebClient ();
-            client.DownloadStringCompleted += (s, e) => ParseStockQuotes (e.Result);     
-            client.DownloadStringAsync (new Uri (url));
+            Title = presenter.Title;
+
+            _presenter = presenter;
+            _presenter.SetView (this);
         }
 
-        private void ParseStockQuotes (string quotesCSV)
+        protected void RaiseNavigationEvent(StockItem item)
         {
-            // split each line
-            var lines = quotesCSV.Split ('\n');
-            foreach (var line in lines) {
-                // fail fast on any stocks that lack prices
-                if (line.Contains ("N/A"))
-                    continue;
-
-                // split each item within the line
-                var components = line.Split (',');
-                if (components.Length > 1) {
-                    try {
-                        // extract the symbol, price and change
-                        string symbol = components [0].Replace ("\"", "");
-                        double quote = double.Parse (components [1]);
-                        double change = double.Parse (components [2]);
-            
-                        // locate the respective data item and update its state
-                        var stockItem = _stocks.SingleOrDefault (s => s.Symbol == symbol);
-                        if (stockItem != null) {
-                            stockItem.Price = quote;
-                            stockItem.Change = change;
-                        }
-                    } catch {
-                    }
-                }
-            }
-      
-            // re-render the list
-            InvokeOnMainThread (() => stockListTable.ReloadData ()); 
-            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+            StockSelected(this, new StockSelectedEventArgs(item));
         }
+
         // a table source that renders our list of stocks
         private class TableSource : UITableViewSource
         {
@@ -109,12 +50,12 @@ namespace ShinobiStockChart
             private static readonly string _cellIdentifier = "TableCell";
             private Dictionary<int, StockItemTableCellView> _cellControllers;
             private List<StockItem> _tableItems;
-            private UINavigationController _navigationController;
+            private StocksListViewController _viewController;
 
-            public TableSource (UINavigationController navigationController, List<StockItem> items)
+            public TableSource (StocksListViewController viewController, List<StockItem> items)
             {
                 _tableItems = items;
-                _navigationController = navigationController;
+                _viewController = viewController;
                 _cellControllers = new Dictionary<int, StockItemTableCellView> ();
             }
 
@@ -159,8 +100,7 @@ namespace ShinobiStockChart
             public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
             {
                 var stockDataItem = _tableItems [indexPath.Row];
-                var chartViewController = new StockChartViewController (stockDataItem.Symbol);
-                _navigationController.PushViewController (chartViewController, true);
+                _viewController.RaiseNavigationEvent (stockDataItem);
             }
         }
     }

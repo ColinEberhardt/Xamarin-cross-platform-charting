@@ -114,6 +114,17 @@
     <Compile Include="Utilities\ExtensionMethods.cs" />
     <Compile Include="Utilities\IShinobiLicenseKeyProvider.cs" />
     <Compile Include="Utilities\ShinobiLicenseKeyProviderJson.cs" />
+    <Compile Include="Model\StockItem.cs" />
+    <Compile Include="Presenter\StockPriceListPresenter.cs" />
+    <Compile Include="Presenter\Service\IAppStatusService.cs" />
+    <Compile Include="MarshalInvokeService.cs" />
+    <Compile Include="Presenter\Service\IMarshalInvokeService.cs" />
+    <Compile Include="AppStatusService.cs" />
+    <Compile Include="Presenter\StockChartPresenter.cs" />
+    <Compile Include="Presenter\StockSelectedEventArgs.cs" />
+    <Compile Include="Presenter\Service\INavigationService.cs" />
+    <Compile Include="NavigationService.cs" />
+    <Compile Include="Presenter\BasePresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="StocksListViewController.xib" />
@@ -133,5 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="AppSecrets.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Presenter\" />
+    <Folder Include="Presenter\Service\" />
   </ItemGroup>
 </Project>
