@@ -1,0 +1,3 @@
+Download the MonoToch beta from here:
+
+http://www.shinobicontrols.com/shinobicontrols-monotouch-preview/

@@ -1,0 +1,35 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ShinobiStockChart/StockChartViewController.cs">
+    <Files>
+      <File FileName="ShinobiStockChart/AppDelegate.cs" Line="6" Column="23" />
+      <File FileName="ShinobiStockChart/StocksListViewController.cs" Line="19" Column="38" />
+      <File FileName="ShinobiStockChart/StocksListViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="ShinobiStockChart/StockItemTableCellView.cs" Line="59" Column="5" />
+      <File FileName="ShinobiStockChart/StockItemTableCellView.designer.cs" Line="1" Column="1" />
+      <File FileName="ShinobiStockChart/Main.cs" Line="1" Column="1" />
+      <File FileName="ShinobiStockChart/StockChartViewController.cs" Line="67" Column="41" />
+      <File FileName="../ShinobiMonoTouch/ShinobiCharts/samples/LineChartSample/LineChartSampleViewController.cs" Line="55" Column="11" />
+      <File FileName="ShinobiStockChart/ExtensionMethods.cs" Line="9" Column="41" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="ShinobiStockChart" expanded="True" selected="True">
+            <Node name="StockItemTableCellView.cs" expanded="True" />
+            <Node name="StocksListViewController.cs" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/ceberhardt/Projects/ShinobiStockChart/ShinobiStockChart/StockListViewController.cs" line="96" />
+      <Catchpoint exceptionName="System.Exception" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="ShinobiStockChart/StockListViewController.cs" line="88" offsetX="367" offsetY="1305" expression="prices" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+</Properties>
