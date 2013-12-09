@@ -9,7 +9,7 @@ namespace ShinobiStockChart.Utilities
 	/// Implementation of IShinobiLicenseKeyProvider which reads the keys from
 	/// the Application's secrets JSON file
 	/// </summary>
-	public class ShinobiLicenseKeyProviderJson : IShinobiLicenseKeyProvider
+    public class ShinobiLicenseKeyProviderJson : IShinobiLicenseKeyProvider
 	{
 		public static IShinobiLicenseKeyProvider Instance = new ShinobiLicenseKeyProviderJson();
 		private string _appSecretsJsonPath = "./AppSecrets.json";
