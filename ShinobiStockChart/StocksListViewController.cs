@@ -17,10 +17,12 @@ namespace ShinobiStockChart
     {
         #region View implementation
 
+        public event EventHandler<StockSelectedEventArgs> StockSelected  = delegate { };
+
         public void SetStockPrices (List<StockItem> prices)
         {
             // set the UITableView source / delegate
-            stockListTable.Source = new TableSource (this.NavigationController, prices);
+            stockListTable.Source = new TableSource (this, prices);
             stockListTable.ReloadData ();
         }
 
@@ -34,6 +36,11 @@ namespace ShinobiStockChart
             _presenter.SetView (this);
         }
 
+        protected void RaiseNavigationEvent(StockItem item)
+        {
+            StockSelected(this, new StockSelectedEventArgs(item));
+        }
+
         // a table source that renders our list of stocks
         private class TableSource : UITableViewSource
         {
@@ -41,12 +48,12 @@ namespace ShinobiStockChart
             private static readonly string _cellIdentifier = "TableCell";
             private Dictionary<int, StockItemTableCellView> _cellControllers;
             private List<StockItem> _tableItems;
-            private UINavigationController _navigationController;
+            private StocksListViewController _viewController;
 
-            public TableSource (UINavigationController navigationController, List<StockItem> items)
+            public TableSource (StocksListViewController viewController, List<StockItem> items)
             {
                 _tableItems = items;
-                _navigationController = navigationController;
+                _viewController = viewController;
                 _cellControllers = new Dictionary<int, StockItemTableCellView> ();
             }
 
@@ -90,9 +97,8 @@ namespace ShinobiStockChart
 
             public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
             {
-                /* var stockDataItem = _tableItems [indexPath.Row];
-                var chartViewController = new StockChartViewController (stockDataItem.Symbol);
-                _navigationController.PushViewController (chartViewController, true);*/
+                var stockDataItem = _tableItems [indexPath.Row];
+                _viewController.RaiseNavigationEvent (stockDataItem);
             }
         }
     }

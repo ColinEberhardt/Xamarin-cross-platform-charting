@@ -120,6 +120,10 @@
     <Compile Include="MarshalInvokeService.cs" />
     <Compile Include="Presenter\Service\IMarshalInvokeService.cs" />
     <Compile Include="AppStatusService.cs" />
+    <Compile Include="Presenter\StockChartPresenter.cs" />
+    <Compile Include="Presenter\StockSelectedEventArgs.cs" />
+    <Compile Include="Presenter\Service\INavigationService.cs" />
+    <Compile Include="NavigationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="StocksListViewController.xib" />

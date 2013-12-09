@@ -20,11 +20,14 @@ namespace ShinobiStockChart
         {
             window = new UIWindow (UIScreen.MainScreen.Bounds);
 
+            var navController = new UINavigationController ();      
+
             var marshalInvokeService = new MarshalInvokeService ();
             var appStatusService = new AppStatusService ();
-            var stockPriceListPresenter = new StockPriceListPresenter (appStatusService, marshalInvokeService);
+            var navigationService = new NavigationService (navController);
+
+            var stockPriceListPresenter = new StockPriceListPresenter (appStatusService, marshalInvokeService, navigationService);
       
-            var navController = new UINavigationController ();      
             var mainView = new StocksListViewController (stockPriceListPresenter);
             navController.PushViewController (mainView, false);
             navController.NavigationBar.TintColor = UIColor.DarkGray;

@@ -11,6 +11,8 @@ namespace ShinobiStockChart.Presenter
         public interface View
         {
             void SetStockPrices (List<StockItem> prices);
+
+            event EventHandler<StockSelectedEventArgs> StockSelected;
         }
 
         private string FTSE100 = "AAL.L,ABF.L,ADM.L,AGK.L,AMEC.L,ANTO.L,ARM.L,AU.L,AV.L,AZN.L,BA.L,BARC.L,BATS.L,BG.L,BLND.L,BLT.L,BP.L,BRBY.L,BSY.L,BT-A.L,CCL.L,CNA.L,CNE.L,CPG.L,CPI.L,CSCG.L,DGE.L,EMG.L,ENRC.L,ESSR.L,EXPN.L,FRES.L,GFS.L,GKN.L,GLEN.L,GSK.L,HL.L,HMSO.L,HSBA.L,IAG.L,IAP.L,IHG.L,III.L,IMI.L,IMT.L,INVP.L,IPR.L,ISAT.L,ITRK.L,ITV.L,JMAT.L,KAZ.L,KGF.L,LAND.L,LGEN.L,LLOY.L,LMI.L,MKS.L,MRW.L,NG.L,NXT.L,OML.L,PFC.L,PRU.L,PSON.L,RB.L,RBS.L,RDSA.L,RDSB.L,REX.L,RIO.L,RR.L,RRS.L,RSA.L,RSL.L,SAB.L,SBRY.L,SDR.L,SDRC.L,SGE.L,SHP.L,SL.L,SMIN.L,SN.L,SRP.L,SSE.L,STAN.L,SVT.L,TATE.L,TLW.L,TSCO.L,ULVR.L,UU.L,VED.L,VOD.L,WEIR.L,WG.L,WOS.L,WPP.L,WTB.L,XTA.L";
@@ -21,17 +23,20 @@ namespace ShinobiStockChart.Presenter
 
         private IMarshalInvokeService _marshalInvoke;
 
+        private INavigationService _navigationService;
+
         // the list of socks
         private List<StockItem> _stocks = new List<StockItem> ();
 
         public string Title { get; private set; }
 
-        public StockPriceListPresenter (IAppStatusService statusService, IMarshalInvokeService marshalInvoke)
+        public StockPriceListPresenter (IAppStatusService statusService, IMarshalInvokeService marshalInvoke, INavigationService navigationService)
         {
             this.Title = "FTSE 100";
 
             _statusService = statusService;
             _marshalInvoke = marshalInvoke;
+            _navigationService = navigationService;
 
             // generate the stock data items from a CSV list
             var symbols = FTSE100.Split (',');
@@ -45,8 +50,13 @@ namespace ShinobiStockChart.Presenter
         public void SetView(View view)
         {
             _view = view;
+            _view.StockSelected += HandleStockSelected;
         }
 
+        private void HandleStockSelected (object sender, StockSelectedEventArgs e)
+        {
+            _navigationService.PushPresenter (new StockChartPresenter (_statusService, _marshalInvoke, e.SelectedItem));
+        }
 
         /// <summary>
         /// Fetches the current stock quote from Yahoo

@@ -10,32 +10,43 @@ using ShinobiStockChart.Utilities;
 
 namespace ShinobiStockChart
 {
-    public partial class StockChartViewController : UIViewController
+    public partial class StockChartViewController : UIViewController, StockChartPresenter.View
     {
-        private ShinobiChart _chart;
-        private StockChartDataSource _charDataSource;
-        private string _symbol;
+        #region View implementation
 
-        public StockChartViewController (string symbol) : base ("StockChartViewController", null)
+        public void UpdateChartWithData (List<SChartData> data)
         {
-            _symbol = symbol;
-      
-            FechPriceData ();
+            _chartDataSource.DataPoints = data; 
+            _chart.ReloadData ();
+            _chart.RedrawChart ();
+
+            progressIndicatorView.Hidden = true;
+            chartHostView.Hidden = false;
+        }
+
+        #endregion
+
+        private ShinobiChart _chart;
+        private StockChartDataSource _chartDataSource;
+
+        public StockChartViewController (StockChartPresenter presenter) : base ("StockChartViewController", null)
+        {
+            presenter.SetView (this);
         }
 
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
       
-            symbolLabel.Text = _symbol;
+            // symbolLabel.Text = _symbol;
       
             // create the chart and add to the view      
             _chart = new ShinobiChart (chartHostView.Bounds);
             _chart.LicenseKey = ShinobiLicenseKeyProviderJson.Instance.ChartsLicenseKey;
       
             // set the datasource
-            _charDataSource = new StockChartDataSource ();
-            _chart.DataSource = _charDataSource;
+            _chartDataSource = new StockChartDataSource ();
+            _chart.DataSource = _chartDataSource;
       
       
             _chart.Theme = new SChartMidnightTheme ();
@@ -67,49 +78,6 @@ namespace ShinobiStockChart
             axis.EnableMomentumZooming = true;
         }
 
-        private void FechPriceData ()
-        {
-            string url = "http://ichart.finance.yahoo.com/table.csv?d=0&e=28&f=2013&g=d&a=3&b=12&c=1996&ignore=.csv&s="
-                   + _symbol;
-      
-            WebClient client = new WebClient ();
-            client.DownloadStringCompleted += (s, e) => {
-                ParseCSVStockPrices (e.Result); 
-
-                InvokeOnMainThread (() => {
-                    progressIndicatorView.Hidden = true;
-                    chartHostView.Hidden = false;
-                });
-            };
-            client.DownloadStringAsync (new Uri (url));
-        }
-
-        private void ParseCSVStockPrices (string csvData)
-        {
-            var seriesData = new List<SChartData> ();
-      
-            var lines = csvData.Split ('\n');
-            foreach (var line in lines.Skip(1)) {
-                var components = line.Split (',');
-                if (components.Length > 1) {
-          
-                    DateTime date = DateTime.Parse (components [0]);
-                    double value = double.Parse (components [1]);
-                    seriesData.Add (new SChartDataPoint () {
-                        XValue = date.ToNSDate (),
-                        YValue = new NSNumber (value)
-                    }
-                    );
-                }
-            }
-      
-            InvokeOnMainThread (() => {
-                _charDataSource.DataPoints = seriesData;
-                _chart.ReloadData ();
-                _chart.RedrawChart ();
-            }
-            );
-        }
 
         private class StockChartDataSource : SChartDataSource
         {
