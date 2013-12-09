@@ -1,0 +1,19 @@
+*.pidb
+*.userprefs
+*.swp
+*.DS_Store
+*.nib
+
+*/bin/*
+*/obj/*
+*/*/bin/*
+*/*/obj/*
+
+# We don't want to include the shinobi DLLs
+Shinobi*.dll
+
+# Or the JSON file containing the secrets used in the app
+AppSecrets.json
+
+# Or the components directory
+Components/

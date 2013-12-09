@@ -1,7 +1,7 @@
 using System;
 using MonoTouch.Foundation;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Utilities
 {
   public static class ExtensionMethods
   {

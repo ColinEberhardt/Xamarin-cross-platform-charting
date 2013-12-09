@@ -59,14 +59,6 @@ namespace ShinobiStockChart
       stockListTable.Source = new TableSource (this.NavigationController, _stocks);
     }
     
-    public override void ViewDidUnload ()
-    {
-      base.ViewDidUnload ();
-            
-      ReleaseDesignerOutlets ();
-    }
-    
-    
     /// <summary>
     /// Fetches the current stock quote from Yahoo
     /// </summary>
@@ -86,6 +78,10 @@ namespace ShinobiStockChart
       // split each line
       var lines = quotesCSV.Split ('\n');
       foreach (var line in lines) {
+		// fail fast on any stocks that lack prices
+		if (line.Contains ("N/A"))
+		  continue;
+
         // split each item within the line
         var components = line.Split (',');
         if (components.Length > 1) {
@@ -107,7 +103,7 @@ namespace ShinobiStockChart
       }
       
       // re-render the list
-      stockListTable.ReloadData ();
+	  InvokeOnMainThread (() => stockListTable.ReloadData ()); 
       UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
     }
     

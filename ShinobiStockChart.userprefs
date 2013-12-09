@@ -1,32 +1,27 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ShinobiStockChart/StockChartViewController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhoneRetina.7.0" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ShinobiStockChart/Utilities/ShinobiLicenseKeyProviderJson.cs">
     <Files>
-      <File FileName="ShinobiStockChart/AppDelegate.cs" Line="6" Column="23" />
-      <File FileName="ShinobiStockChart/StocksListViewController.cs" Line="19" Column="38" />
+      <File FileName="ShinobiStockChart/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="ShinobiStockChart/StocksListViewController.cs" Line="106" Column="4" />
       <File FileName="ShinobiStockChart/StocksListViewController.designer.cs" Line="1" Column="1" />
-      <File FileName="ShinobiStockChart/StockItemTableCellView.cs" Line="59" Column="5" />
+      <File FileName="ShinobiStockChart/StockItemTableCellView.cs" Line="1" Column="1" />
       <File FileName="ShinobiStockChart/StockItemTableCellView.designer.cs" Line="1" Column="1" />
       <File FileName="ShinobiStockChart/Main.cs" Line="1" Column="1" />
-      <File FileName="ShinobiStockChart/StockChartViewController.cs" Line="67" Column="41" />
-      <File FileName="../ShinobiMonoTouch/ShinobiCharts/samples/LineChartSample/LineChartSampleViewController.cs" Line="55" Column="11" />
-      <File FileName="ShinobiStockChart/ExtensionMethods.cs" Line="9" Column="41" />
+      <File FileName="ShinobiStockChart/StockChartViewController.cs" Line="37" Column="1" />
+      <File FileName="ShinobiStockChart/Utilities/ExtensionMethods.cs" Line="1" Column="1" />
+      <File FileName="ShinobiStockChart/Utilities/IShinobiLicenseKeyProvider.cs" Line="1" Column="1" />
+      <File FileName="ShinobiStockChart/Utilities/ShinobiLicenseKeyProviderJson.cs" Line="28" Column="106" />
+      <File FileName="ShinobiStockChart/AppSecrets.json" Line="1" Column="1" />
+      <File FileName="ShinobiStockChart/AppSecrets.sample.json" Line="1" Column="1" />
+      <File FileName="ShinobiStockChart/Info.plist" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="ShinobiStockChart" expanded="True" selected="True">
-            <Node name="StockItemTableCellView.cs" expanded="True" />
-            <Node name="StocksListViewController.cs" expanded="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/ceberhardt/Projects/ShinobiStockChart/ShinobiStockChart/StockListViewController.cs" line="96" />
+      <Breakpoint file="/Users/ceberhardt/Projects/ShinobiStockChart/ShinobiStockChart/StockListViewController.cs" line="96" column="1" />
       <Catchpoint exceptionName="System.Exception" />
+      <Breakpoint file="/Users/ceberhardt/Documents/Projects/Xamarin-cross-platform-charting/ShinobiStockChart/Utilities/ShinobiLicenseKeyProviderJson.cs" line="23" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

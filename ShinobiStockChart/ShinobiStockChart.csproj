@@ -46,7 +46,8 @@
     <MtouchDebug>true</MtouchDebug>
     <MtouchProfiling>true</MtouchProfiling>
     <MtouchArch>ARMv7</MtouchArch>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -57,7 +58,8 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchArch>ARMv7</MtouchArch>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -84,11 +86,15 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
     <Reference Include="ShinobiCharts">
-      <HintPath>..\depends\ShinobiCharts.dll</HintPath>
+      <HintPath>..\Components\ShinobiCharts-2.3.0-trial\lib\ios\ShinobiCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
+    <None Include="AppSecrets.sample.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -105,7 +111,9 @@
     <Compile Include="StockChartViewController.designer.cs">
       <DependentUpon>StockChartViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Utilities\IShinobiLicenseKeyProvider.cs" />
+    <Compile Include="Utilities\ShinobiLicenseKeyProviderJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="StocksListViewController.xib" />
@@ -113,4 +121,17 @@
     <InterfaceDefinition Include="StockChartViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <XamarinComponentReference Include="json.net">
+      <Version>4.5.11</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="ShinobiCharts-trial">
+      <Version>2.3.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="AppSecrets.json" />
+  </ItemGroup>
 </Project>

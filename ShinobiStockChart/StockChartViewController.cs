@@ -9,6 +9,8 @@ using ShinobiCharts;
 using System.Net;
 using System.Linq;
 
+using ShinobiStockChart.Utilities;
+
 namespace ShinobiStockChart
 {
   public partial class StockChartViewController : UIViewController
@@ -32,6 +34,7 @@ namespace ShinobiStockChart
       
       // create the chart and add to the view      
       _chart = new ShinobiChart (chartHostView.Bounds);
+	  _chart.LicenseKey = ShinobiLicenseKeyProviderJson.Instance.ChartsLicenseKey;
       
       // set the datasource
       _charDataSource = new StockChartDataSource ();
@@ -66,13 +69,6 @@ namespace ShinobiStockChart
       axis.EnableMomentumPanning = true;
       axis.EnableMomentumZooming = true;
     }
-    
-    public override void ViewDidUnload ()
-    {
-      base.ViewDidUnload ();
-      
-      ReleaseDesignerOutlets ();
-    }
         
     private void FechPriceData ()
     {
@@ -82,8 +78,11 @@ namespace ShinobiStockChart
       WebClient client = new WebClient ();
       client.DownloadStringCompleted += (s,e) => {
         ParseCSVStockPrices (e.Result); 
-        progressIndicatorView.Hidden = true;
-        chartHostView.Hidden = false;
+
+        InvokeOnMainThread (() => {
+          progressIndicatorView.Hidden = true;
+          chartHostView.Hidden = false;
+        });
       };
       client.DownloadStringAsync (new Uri (url));
     }
@@ -135,8 +134,8 @@ namespace ShinobiStockChart
         // no-op
         return null;
       }
-      
-      public override SChartData[] GetDataPoints (ShinobiChart chart, int seriesIndex)
+
+	  protected override SChartData[] GetDataPoints (ShinobiChart chart, int seriesIndex)
       {
         return _dataPoints.ToArray ();
       }
