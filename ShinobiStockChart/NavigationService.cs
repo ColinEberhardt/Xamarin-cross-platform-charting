@@ -1,6 +1,7 @@
 using System;
 using MonoTouch.UIKit;
 using ShinobiStockChart.Presenter;
+using ShinobiStockChart.Presenter.Service;
 
 namespace ShinobiStockChart
 {

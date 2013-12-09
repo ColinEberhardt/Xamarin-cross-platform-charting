@@ -1,6 +1,6 @@
 using System;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Presenter.Service
 {
     public interface IAppStatusService
     {

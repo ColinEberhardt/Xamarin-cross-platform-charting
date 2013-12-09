@@ -6,14 +6,17 @@ using ShinobiCharts;
 using System.Linq;
 using MonoTouch.Foundation;
 using ShinobiStockChart.Utilities;
+using ShinobiStockChart.Presenter.Service;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Presenter
 {
-    public class StockChartPresenter
+    public class StockChartPresenter : BasePresenter
     {
         public interface View 
         {
             void UpdateChartWithData (List<SChartData> data);
+
+            string ChartTitle { set; }
         }
 
         private IAppStatusService _statusService;
@@ -24,10 +27,14 @@ namespace ShinobiStockChart
 
         private List<SChartData> _chartData;
 
+        private StockItem _stockItem;
+
         public StockChartPresenter (IAppStatusService statusService, IMarshalInvokeService marshalInvoke, StockItem stockItem)
+            : base(stockItem.Symbol)
         {
             _statusService = statusService;
             _marshalInvoke = marshalInvoke;
+            _stockItem = stockItem;
 
             FetchPriceData (stockItem.Symbol);
         }
@@ -35,6 +42,7 @@ namespace ShinobiStockChart
         public void SetView(View view)
         {
             _view = view;
+            _view.ChartTitle = _stockItem.Symbol;
 
             // if we already have data - supply it to the chart
             if (_chartData != null) {

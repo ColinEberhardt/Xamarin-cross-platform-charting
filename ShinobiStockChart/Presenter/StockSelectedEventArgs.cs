@@ -1,7 +1,7 @@
 using System;
 using ShinobiStockChart.Model;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Presenter
 {
     public class StockSelectedEventArgs : EventArgs
     {

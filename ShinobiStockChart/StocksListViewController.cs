@@ -32,6 +32,8 @@ namespace ShinobiStockChart
 
         public StocksListViewController (StockPriceListPresenter presenter) : base ("StocksListViewController", null)
         {
+            Title = presenter.Title;
+
             _presenter = presenter;
             _presenter.SetView (this);
         }

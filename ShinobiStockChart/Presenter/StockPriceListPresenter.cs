@@ -3,10 +3,11 @@ using ShinobiStockChart.Model;
 using System.Net;
 using System.Collections.Generic;
 using System.Linq;
+using ShinobiStockChart.Presenter.Service;
 
 namespace ShinobiStockChart.Presenter
 {
-    public class StockPriceListPresenter
+    public class StockPriceListPresenter : BasePresenter
     {
         public interface View
         {
@@ -25,15 +26,11 @@ namespace ShinobiStockChart.Presenter
 
         private INavigationService _navigationService;
 
-        // the list of socks
         private List<StockItem> _stocks = new List<StockItem> ();
 
-        public string Title { get; private set; }
-
         public StockPriceListPresenter (IAppStatusService statusService, IMarshalInvokeService marshalInvoke, INavigationService navigationService)
-        {
-            this.Title = "FTSE 100";
-
+            : base("FTSE 100")
+        {           
             _statusService = statusService;
             _marshalInvoke = marshalInvoke;
             _navigationService = navigationService;

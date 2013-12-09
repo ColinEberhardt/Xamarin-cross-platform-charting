@@ -124,6 +124,7 @@
     <Compile Include="Presenter\StockSelectedEventArgs.cs" />
     <Compile Include="Presenter\Service\INavigationService.cs" />
     <Compile Include="NavigationService.cs" />
+    <Compile Include="Presenter\BasePresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="StocksListViewController.xib" />

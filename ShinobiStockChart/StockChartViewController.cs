@@ -7,12 +7,23 @@ using ShinobiCharts;
 using System.Net;
 using System.Linq;
 using ShinobiStockChart.Utilities;
+using ShinobiStockChart.Presenter;
 
 namespace ShinobiStockChart
 {
     public partial class StockChartViewController : UIViewController, StockChartPresenter.View
     {
         #region View implementation
+
+        public string ChartTitle {
+            set {
+                if (symbolLabel != null) {
+                    symbolLabel.Text = value;
+                } else {
+                    _chartTitle = value;
+                }
+            }
+        }
 
         public void UpdateChartWithData (List<SChartData> data)
         {
@@ -27,19 +38,25 @@ namespace ShinobiStockChart
         #endregion
 
         private ShinobiChart _chart;
+
         private StockChartDataSource _chartDataSource;
+
+        private string _chartTitle;
 
         public StockChartViewController (StockChartPresenter presenter) : base ("StockChartViewController", null)
         {
+            Title = presenter.Title;
             presenter.SetView (this);
         }
 
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-      
-            // symbolLabel.Text = _symbol;
-      
+
+            if (_chartTitle != null) {
+                symbolLabel.Text = _chartTitle;
+            }
+
             // create the chart and add to the view      
             _chart = new ShinobiChart (chartHostView.Bounds);
             _chart.LicenseKey = ShinobiLicenseKeyProviderJson.Instance.ChartsLicenseKey;
@@ -47,7 +64,6 @@ namespace ShinobiStockChart
             // set the datasource
             _chartDataSource = new StockChartDataSource ();
             _chart.DataSource = _chartDataSource;
-      
       
             _chart.Theme = new SChartMidnightTheme ();
             View.BackgroundColor = _chart.Theme.ChartStyle.BackgroundColor;

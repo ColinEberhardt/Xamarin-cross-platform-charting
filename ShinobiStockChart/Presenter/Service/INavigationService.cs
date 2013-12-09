@@ -1,6 +1,6 @@
 using System;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Presenter.Service
 {
     /// <summary>
     /// A service which provides navigation from page to page.
