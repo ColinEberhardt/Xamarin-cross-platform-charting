@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using ShinobiStockChart.Presenter;
 
 namespace ShinobiStockChart
 {
@@ -18,9 +19,13 @@ namespace ShinobiStockChart
         public override bool FinishedLaunching (UIApplication app, NSDictionary options)
         {
             window = new UIWindow (UIScreen.MainScreen.Bounds);
+
+            var marshalInvokeService = new MarshalInvokeService ();
+            var appStatusService = new AppStatusService ();
+            var stockPriceListPresenter = new StockPriceListPresenter (appStatusService, marshalInvokeService);
       
             var navController = new UINavigationController ();      
-            var mainView = new StocksListViewController ();
+            var mainView = new StocksListViewController (stockPriceListPresenter);
             navController.PushViewController (mainView, false);
             navController.NavigationBar.TintColor = UIColor.DarkGray;
       
