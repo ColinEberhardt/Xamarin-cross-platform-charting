@@ -25,9 +25,14 @@ namespace ShinobiStockChart
             }
         }
 
-        public void UpdateChartWithData (List<SChartData> data)
+        public void UpdateChartWithData (List<ChartDataPoint> data)
         {
-            _chartDataSource.DataPoints = data; 
+            _chartDataSource.DataPoints = data.Select(dp => new SChartDataPoint () {
+                                                    XValue = dp.XValue.ToNSDate (),
+                                                    YValue = new NSNumber (dp.YValue)
+                                                })
+                                                .Cast<SChartData>()
+                                                .ToList(); 
             _chart.ReloadData ();
             _chart.RedrawChart ();
 

@@ -125,6 +125,7 @@
     <Compile Include="Presenter\Service\INavigationService.cs" />
     <Compile Include="NavigationService.cs" />
     <Compile Include="Presenter\BasePresenter.cs" />
+    <Compile Include="Model\ChartDataPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="StocksListViewController.xib" />

@@ -2,7 +2,6 @@ using System;
 using ShinobiStockChart.Model;
 using System.Net;
 using System.Collections.Generic;
-using ShinobiCharts;
 using System.Linq;
 using MonoTouch.Foundation;
 using ShinobiStockChart.Utilities;
@@ -14,7 +13,7 @@ namespace ShinobiStockChart.Presenter
     {
         public interface View 
         {
-            void UpdateChartWithData (List<SChartData> data);
+            void UpdateChartWithData (List<ChartDataPoint> data);
 
             string ChartTitle { set; }
         }
@@ -25,7 +24,7 @@ namespace ShinobiStockChart.Presenter
 
         private View _view;
 
-        private List<SChartData> _chartData;
+        private List<ChartDataPoint> _chartData;
 
         private StockItem _stockItem;
 
@@ -69,9 +68,9 @@ namespace ShinobiStockChart.Presenter
             client.DownloadStringAsync (new Uri (url));
         }
 
-        private List<SChartData> ParseCSVStockPrices (string csvData)
+        private List<ChartDataPoint> ParseCSVStockPrices (string csvData)
         {
-            var seriesData = new List<SChartData> ();
+            var seriesData = new List<ChartDataPoint> ();
 
             var lines = csvData.Split ('\n');
             foreach (var line in lines.Skip(1)) {
@@ -79,9 +78,9 @@ namespace ShinobiStockChart.Presenter
                 if (components.Length > 1) {
                     DateTime date = DateTime.Parse (components [0]);
                     double value = double.Parse (components [1]);
-                    seriesData.Add (new SChartDataPoint () {
-                        XValue = date.ToNSDate (),
-                        YValue = new NSNumber (value)
+                    seriesData.Add (new ChartDataPoint () {
+                        XValue = date,
+                        YValue = value
                     });
                 }
             }
