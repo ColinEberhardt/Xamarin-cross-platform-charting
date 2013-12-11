@@ -3,8 +3,8 @@ using ShinobiStockChart.Model;
 using System.Net;
 using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Foundation;
 using ShinobiStockChart.Presenter.Service;
+using System.IO;
 
 namespace ShinobiStockChart.Presenter
 {
@@ -55,17 +55,21 @@ namespace ShinobiStockChart.Presenter
             string url = "http://ichart.finance.yahoo.com/table.csv?d=0&e=28&f=2013&g=d&a=3&b=12&c=1996&ignore=.csv&s="
                          + symbol;
 
-            var foo = new HttpWebRequest ();
-            WebClient client = new System.Net.WebClient ();
-            client.DownloadStringCompleted += (s, e) => {
-                _chartData = ParseCSVStockPrices (e.Result); 
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create (url);
+            webRequest.BeginGetResponse (new AsyncCallback (ReceivePriceData), webRequest);
+        }
 
-                _marshalInvoke.Invoke (() => {
-                    _statusService.NetworkActivityIndicatorVisible = false;
-                    _view.UpdateChartWithData(_chartData);
-                });
-            };
-            client.DownloadStringAsync (new Uri (url));
+        private void ReceivePriceData(IAsyncResult result)
+        {
+            HttpWebResponse response = (HttpWebResponse)((HttpWebRequest)result.AsyncState).EndGetResponse(result);
+
+            var body = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            _chartData = ParseCSVStockPrices (body); 
+
+            _marshalInvoke.Invoke (() => {
+                _statusService.NetworkActivityIndicatorVisible = false;
+                _view.UpdateChartWithData(_chartData);
+            });
         }
 
         private List<ChartDataPoint> ParseCSVStockPrices (string csvData)
