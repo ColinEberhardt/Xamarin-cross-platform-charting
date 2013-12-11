@@ -4,7 +4,6 @@ using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
-using ShinobiStockChart.Utilities;
 using ShinobiStockChart.Presenter.Service;
 
 namespace ShinobiStockChart.Presenter
@@ -56,7 +55,8 @@ namespace ShinobiStockChart.Presenter
             string url = "http://ichart.finance.yahoo.com/table.csv?d=0&e=28&f=2013&g=d&a=3&b=12&c=1996&ignore=.csv&s="
                          + symbol;
 
-            WebClient client = new WebClient ();
+            var foo = new HttpWebRequest ();
+            WebClient client = new System.Net.WebClient ();
             client.DownloadStringCompleted += (s, e) => {
                 _chartData = ParseCSVStockPrices (e.Result); 
 

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinobiStockChart", "ShinobiStockChart\ShinobiStockChart.csproj", "{498858AE-8BB6-4746-B083-9A4330765E13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinobiStockChartCore", "ShinobiStockChartCore\ShinobiStockChartCore.csproj", "{240E93ED-94CB-4447-BBA4-282A1B490D3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -13,6 +15,18 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Release|iPhone.Build.0 = Release|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{240E93ED-94CB-4447-BBA4-282A1B490D3E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{498858AE-8BB6-4746-B083-9A4330765E13}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
 		{498858AE-8BB6-4746-B083-9A4330765E13}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
 		{498858AE-8BB6-4746-B083-9A4330765E13}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
