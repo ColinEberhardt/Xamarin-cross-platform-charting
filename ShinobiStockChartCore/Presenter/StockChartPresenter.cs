@@ -2,11 +2,9 @@ using System;
 using ShinobiStockChart.Model;
 using System.Net;
 using System.Collections.Generic;
-using ShinobiCharts;
 using System.Linq;
-using MonoTouch.Foundation;
-using ShinobiStockChart.Utilities;
 using ShinobiStockChart.Presenter.Service;
+using System.IO;
 
 namespace ShinobiStockChart.Presenter
 {
@@ -14,7 +12,7 @@ namespace ShinobiStockChart.Presenter
     {
         public interface View 
         {
-            void UpdateChartWithData (List<SChartData> data);
+            void UpdateChartWithData (List<ChartDataPoint> data);
 
             string ChartTitle { set; }
         }
@@ -25,7 +23,7 @@ namespace ShinobiStockChart.Presenter
 
         private View _view;
 
-        private List<SChartData> _chartData;
+        private List<ChartDataPoint> _chartData;
 
         private StockItem _stockItem;
 
@@ -57,21 +55,26 @@ namespace ShinobiStockChart.Presenter
             string url = "http://ichart.finance.yahoo.com/table.csv?d=0&e=28&f=2013&g=d&a=3&b=12&c=1996&ignore=.csv&s="
                          + symbol;
 
-            WebClient client = new WebClient ();
-            client.DownloadStringCompleted += (s, e) => {
-                _chartData = ParseCSVStockPrices (e.Result); 
-
-                _marshalInvoke.Invoke (() => {
-                    _statusService.NetworkActivityIndicatorVisible = false;
-                    _view.UpdateChartWithData(_chartData);
-                });
-            };
-            client.DownloadStringAsync (new Uri (url));
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create (url);
+            webRequest.BeginGetResponse (new AsyncCallback (ReceivePriceData), webRequest);
         }
 
-        private List<SChartData> ParseCSVStockPrices (string csvData)
+        private void ReceivePriceData(IAsyncResult result)
         {
-            var seriesData = new List<SChartData> ();
+            HttpWebResponse response = (HttpWebResponse)((HttpWebRequest)result.AsyncState).EndGetResponse(result);
+
+            var body = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            _chartData = ParseCSVStockPrices (body); 
+
+            _marshalInvoke.Invoke (() => {
+                _statusService.NetworkActivityIndicatorVisible = false;
+                _view.UpdateChartWithData(_chartData);
+            });
+        }
+
+        private List<ChartDataPoint> ParseCSVStockPrices (string csvData)
+        {
+            var seriesData = new List<ChartDataPoint> ();
 
             var lines = csvData.Split ('\n');
             foreach (var line in lines.Skip(1)) {
@@ -79,9 +82,9 @@ namespace ShinobiStockChart.Presenter
                 if (components.Length > 1) {
                     DateTime date = DateTime.Parse (components [0]);
                     double value = double.Parse (components [1]);
-                    seriesData.Add (new SChartDataPoint () {
-                        XValue = date.ToNSDate (),
-                        YValue = new NSNumber (value)
+                    seriesData.Add (new ChartDataPoint () {
+                        XValue = date,
+                        YValue = value
                     });
                 }
             }

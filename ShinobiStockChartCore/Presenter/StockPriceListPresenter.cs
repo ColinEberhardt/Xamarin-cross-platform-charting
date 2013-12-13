@@ -4,6 +4,7 @@ using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using ShinobiStockChart.Presenter.Service;
+using System.IO;
 
 namespace ShinobiStockChart.Presenter
 {
@@ -65,9 +66,16 @@ namespace ShinobiStockChart.Presenter
             string url = "http://finance.yahoo.com/d/quotes.csv?f=sac1k&s=";      
             url += string.Join ("+", _stocks.Select (s => s.Symbol));
 
-            WebClient client = new WebClient ();
-            client.DownloadStringCompleted += (s, e) => ParseStockQuotes (e.Result);     
-            client.DownloadStringAsync (new Uri (url));
+
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create (url);
+            webRequest.BeginGetResponse (new AsyncCallback (ReceiveStockQuotes), webRequest);
+        }
+
+        private void ReceiveStockQuotes(IAsyncResult result)
+        {
+            HttpWebResponse response = (HttpWebResponse)((HttpWebRequest)result.AsyncState).EndGetResponse(result);
+            var body = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            ParseStockQuotes (body);
         }
 
         private void ParseStockQuotes (string quotesCSV)
