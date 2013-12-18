@@ -53,6 +53,7 @@
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="View\StockPriceListActivity.cs" />
     <Compile Include="Service\AppStatusService.cs" />
+    <Compile Include="View\ChangeIndicatorTextView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -63,6 +64,7 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\layout\StockPriceListActivityLayout.axml" />
+    <AndroidResource Include="Resources\layout\StockItemListViewRow.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

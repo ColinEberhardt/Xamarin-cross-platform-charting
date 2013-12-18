@@ -11,5 +11,5 @@
         p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@id/android:list" />
+        p1:id="@+id/stock_list" />
 </LinearLayout>
