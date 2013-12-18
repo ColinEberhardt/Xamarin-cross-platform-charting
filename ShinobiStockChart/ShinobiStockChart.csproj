@@ -84,13 +84,13 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="ShinobiCharts">
-      <HintPath>..\Components\ShinobiCharts-2.3.0-trial\lib\ios\ShinobiCharts.dll</HintPath>
-    </Reference>
+    <Reference Include="monotouch" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="monotouch" />
+    <Reference Include="ShinobiCharts">
+      <HintPath>..\Components\ShinobiCharts-2.3.0-trial\lib\ios\ShinobiCharts.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
