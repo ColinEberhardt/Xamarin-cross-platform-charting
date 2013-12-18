@@ -46,9 +46,13 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShinobiStockChartApplication.cs" />
+    <Compile Include="Service\MarshalInvokeService.cs" />
+    <Compile Include="Service\NavigationService.cs" />
+    <Compile Include="View\StockPriceListActivity.cs" />
+    <Compile Include="Service\AppStatusService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -56,9 +60,20 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\layout\StockPriceListActivityLayout.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Resources\layout\" />
+    <Folder Include="Service\" />
+    <Folder Include="View\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShinobiStockChartCore\ShinobiStockChartCore.csproj">
+      <Project>{240E93ED-94CB-4447-BBA4-282A1B490D3E}</Project>
+      <Name>ShinobiStockChartCore</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

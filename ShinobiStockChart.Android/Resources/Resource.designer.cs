@@ -61,7 +61,7 @@ namespace ShinobiStockChart.Android
 		{
 			
 			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			public const int linearLayout1 = 2131034112;
 			
 			static Id()
 			{
@@ -77,7 +77,7 @@ namespace ShinobiStockChart.Android
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int StockPriceListActivityLayout = 2130903040;
 			
 			static Layout()
 			{
