@@ -5,10 +5,9 @@
     android:layout_height="fill_parent"
     android:minWidth="25px"
     android:minHeight="25px">
-    <TextView
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
+    <fragment
+        class="com.shinobicontrols.charts.ChartFragment"
+        android:id="@+id/chart"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 </LinearLayout>

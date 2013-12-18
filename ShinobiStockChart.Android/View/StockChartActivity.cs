@@ -9,6 +9,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using ShinobiStockChart.Presenter;
+using Com.ShinobiControls.Charts;
 
 namespace ShinobiStockChart.Android
 {
@@ -19,18 +20,27 @@ namespace ShinobiStockChart.Android
 
 		public void UpdateChartWithData (List<ChartDataPoint> data)
 		{
-			FindViewById<TextView> (Resource.Id.textView1).Text = "Data Received";
+			var adapter = new SimpleDataAdapter ();
+			adapter.AddAll (data);
+			if(_priceSeries == null) {
+				_priceSeries = new LineSeries ();
+				_chart.AddSeries (_priceSeries);
+			}
+			_priceSeries.DataAdapter = new SimpleDataAdapter ();
+			_priceSeries.DataAdapter.AddAll (data.Select ( dp => 
+				new DataPoint (DateUtils.ConvertToJavaDate (dp.XValue), dp.YValue)).ToList ());
 		}
 
 		public string ChartTitle {
 			set {
-
 			}
 		}
 
 		#endregion
 
 		private StockChartPresenter _presenter;
+		private IShinobiChart _chart;
+		private LineSeries _priceSeries;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -45,7 +55,15 @@ namespace ShinobiStockChart.Android
 			_presenter = app.Presenter as StockChartPresenter;
 			_presenter.SetView (this);
 
+			var chartFrag = FragmentManager.FindFragmentById<ChartFragment> (Resource.Id.chart);
+			_chart = chartFrag.ShinobiChart;
+			_chart.SetLicenseKey ("<INSERT LICENSE KEY HERE>");
+		
+			_chart.XAxis = new DateTimeAxis ();
+			_chart.YAxis = new NumberAxis ();
+		
 		}
+			
 	}
 }
 
