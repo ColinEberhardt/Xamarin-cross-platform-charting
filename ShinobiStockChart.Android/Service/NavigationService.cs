@@ -34,6 +34,8 @@ namespace ShinobiStockChart.Android.Service
 				if(presenter is StockPriceListPresenter)
 				{
 					i = new Intent (_application.CurrentActivity, typeof(StockPriceListActivity));
+				} else if (presenter is StockChartPresenter) {
+					i = new Intent (_application.CurrentActivity, typeof(StockChartActivity));
 				}
 
 				if(i != null) {

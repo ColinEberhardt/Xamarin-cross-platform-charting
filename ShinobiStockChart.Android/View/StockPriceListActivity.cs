@@ -20,12 +20,14 @@ namespace ShinobiStockChart.Android
 	[Activity (MainLauncher = true)]
 	public class StockPriceListActivity : Activity, StockPriceListPresenter.View
 	{
+		private List<StockItem> _prices;
 
 		#region View implementation
-		public event EventHandler<StockSelectedEventArgs> StockSelected;
+		public event EventHandler<StockSelectedEventArgs> StockSelected = delegate { };
 		public void SetStockPrices (List<StockItem> prices)
 		{
-			_listView.Adapter = new StockPriceListAdapter (this, prices);
+			_prices = prices;
+			_listView.Adapter = new StockPriceListAdapter (this, _prices);
 		}
 		#endregion
 
@@ -53,6 +55,12 @@ namespace ShinobiStockChart.Android
 			_presenter = new StockPriceListPresenter (appStatus, uiMarshal, navigation);
 			_presenter.SetView (this);
 			app.Presenter = _presenter;
+
+			// Set up click handling
+			_listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
+				var stockItem = _prices[e.Position];
+				StockSelected(this, new StockSelectedEventArgs (stockItem));
+			};
 		}
 
 		private class StockPriceListAdapter : BaseAdapter<StockItem>
