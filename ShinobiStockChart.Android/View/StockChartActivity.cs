@@ -10,7 +10,7 @@ using Android.Views;
 using Android.Widget;
 using ShinobiStockChart.Presenter;
 using Com.ShinobiControls.Charts;
-using ShinobiStockChart.Android.ExtensionMethods;
+using ShinobiStockChart.Android.Utilities;
 
 namespace ShinobiStockChart.Android
 {
@@ -64,7 +64,7 @@ namespace ShinobiStockChart.Android
 
 			var chartFrag = FragmentManager.FindFragmentById<ChartFragment> (Resource.Id.chart);
 			_chart = chartFrag.ShinobiChart;
-			_chart.SetLicenseKey ("<INSERT LICENSE KEY HERE>");
+			_chart.SetLicenseKey ("<PUT YOUR LICENSE KEY HERE>");
 		
 			_chart.XAxis = new DateTimeAxis ();
 			_chart.XAxis.EnableGestures ();

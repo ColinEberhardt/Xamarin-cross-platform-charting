@@ -60,7 +60,7 @@
     <Compile Include="Service\AppStatusService.cs" />
     <Compile Include="View\ChangeIndicatorTextView.cs" />
     <Compile Include="View\StockChartActivity.cs" />
-    <Compile Include="Utils\AxisExtensions.cs" />
+    <Compile Include="Utilities\AxisExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -79,7 +79,7 @@
     <Folder Include="Resources\layout\" />
     <Folder Include="Service\" />
     <Folder Include="View\" />
-    <Folder Include="Utils\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShinobiStockChartCore\ShinobiStockChartCore.csproj">

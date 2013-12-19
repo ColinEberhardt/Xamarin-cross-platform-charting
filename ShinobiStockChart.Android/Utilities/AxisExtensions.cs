@@ -1,7 +1,7 @@
 ﻿using System;
 using Com.ShinobiControls.Charts;
 
-namespace ShinobiStockChart.Android.ExtensionMethods
+namespace ShinobiStockChart.Android.Utilities
 {
 	public static class AxisExtensions
 	{
