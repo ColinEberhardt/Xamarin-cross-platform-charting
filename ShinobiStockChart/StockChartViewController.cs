@@ -64,7 +64,7 @@ namespace ShinobiStockChart
 
             // create the chart and add to the view      
             _chart = new ShinobiChart (chartHostView.Bounds);
-            _chart.LicenseKey = ShinobiLicenseKeyProviderJson.Instance.ChartsLicenseKey;
+			_chart.LicenseKey = @"<PUT YOUR LICENSE KEY HERE>";
       
             // set the datasource
             _chartDataSource = new StockChartDataSource ();

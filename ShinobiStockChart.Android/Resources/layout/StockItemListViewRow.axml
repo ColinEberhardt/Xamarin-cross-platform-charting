@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp">
+        <TextView
+            android:text="MSFT"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/text_ticker"
+            android:textColor="#ffcbcbcb"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+        <ShinobiStockChart.Android.ChangeIndicatorTextView
+            android:text="23.555"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/text_price"
+            android:textColor="#ffffffff"
+            android:gravity="right"
+            android:textSize="20dp" />
+    </LinearLayout>
+</RelativeLayout>

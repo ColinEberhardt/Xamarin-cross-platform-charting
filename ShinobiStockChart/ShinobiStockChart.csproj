@@ -84,17 +84,13 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
     <Reference Include="ShinobiCharts">
       <HintPath>..\Components\ShinobiCharts-2.3.0-trial\lib\ios\ShinobiCharts.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="monotouch" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
-    <None Include="AppSecrets.sample.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -112,8 +108,6 @@
       <DependentUpon>StockChartViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\ExtensionMethods.cs" />
-    <Compile Include="Utilities\IShinobiLicenseKeyProvider.cs" />
-    <Compile Include="Utilities\ShinobiLicenseKeyProviderJson.cs" />
     <Compile Include="MarshalInvokeService.cs" />
     <Compile Include="AppStatusService.cs" />
     <Compile Include="NavigationService.cs" />
@@ -125,17 +119,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <XamarinComponentReference Include="json.net">
-      <Version>4.5.11</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="ShinobiCharts-trial">
       <Version>2.3.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="AppSecrets.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShinobiStockChartCore\ShinobiStockChartCore.csproj">
