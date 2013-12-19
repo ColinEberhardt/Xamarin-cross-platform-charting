@@ -44,13 +44,14 @@ namespace ShinobiStockChart.Android
             SetContentView (Resource.Layout.StockPriceListActivityLayout);
             _listView = FindViewById<ListView> (Resource.Id.stock_list);
 
+
             // Set up the correct properties on the application
             var app = ShinobiStockChartApplication.GetApplication (this);
             app.CurrentActivity = this;
 
             // Prepare the services
             var uiMarshal = new MarshalInvokeService (app);
-            var appStatus = new AppStatusService ();
+            var appStatus = new AppStatusService (app);
             var navigation = new NavigationService (app);
 
             // Create the presenter

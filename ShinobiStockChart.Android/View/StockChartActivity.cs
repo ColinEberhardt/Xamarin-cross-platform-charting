@@ -72,6 +72,7 @@ namespace ShinobiStockChart.Android
             _presenter = app.Presenter as StockChartPresenter;
             _presenter.SetView (this);
 
+            // Get the chart and configure it
             var chartFrag = FragmentManager.FindFragmentById<ChartFragment> (Resource.Id.chart);
             _chart = chartFrag.ShinobiChart;
             _chart.SetLicenseKey ("<PUT YOUR LICENSE KEY HERE>");
