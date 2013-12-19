@@ -30,6 +30,7 @@ namespace ShinobiStockChart.Android
 			_priceSeries.DataAdapter = new SimpleDataAdapter ();
 			_priceSeries.DataAdapter.AddAll (data.Select ( dp => 
 				new DataPoint (DateUtils.ConvertToJavaDate (dp.XValue), dp.YValue)).ToList ());
+			_progressDialog.Dismiss ();
 		}
 
 		public string ChartTitle {
@@ -48,6 +49,7 @@ namespace ShinobiStockChart.Android
 		private IShinobiChart _chart;
 		private LineSeries _priceSeries;
 		private String _chartTitle;
+		private ProgressDialog _progressDialog;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -55,6 +57,13 @@ namespace ShinobiStockChart.Android
 
 			// Prepare the view
 			SetContentView (Resource.Layout.StockChartActivityLayout);
+
+			// Create and show the progress dialog
+			_progressDialog = new ProgressDialog (this);
+			_progressDialog.SetTitle ("Retrieving Data...");
+			_progressDialog.SetMessage ("Please wait");
+			_progressDialog.SetCancelable (false);
+			_progressDialog.Show ();
 
 			// Manage the updates of the presenter and application
 			var app = ShinobiStockChartApplication.GetApplication (this);
