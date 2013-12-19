@@ -13,38 +13,37 @@ using ShinobiStockChart.Presenter;
 
 namespace ShinobiStockChart.Android.Service
 {
-	class NavigationService : INavigationService
-	{
-		private ShinobiStockChartApplication _application;
+    class NavigationService : INavigationService
+    {
+        private ShinobiStockChartApplication _application;
 
-		public NavigationService (ShinobiStockChartApplication application)
-		{
-			_application = application;
-		}
+        public NavigationService (ShinobiStockChartApplication application)
+        {
+            _application = application;
+        }
 
+        #region INavigationService implementation
 
-		#region INavigationService implementation
-		public void PushPresenter (object presenter)
-		{
-			object oldPresenter = _application.Presenter;
-			if (presenter != oldPresenter) {
-				_application.Presenter = presenter;
-				Intent i = null;
+        public void PushPresenter (object presenter)
+        {
+            object oldPresenter = _application.Presenter;
+            if (presenter != oldPresenter) {
+                _application.Presenter = presenter;
+                Intent i = null;
 
-				if(presenter is StockPriceListPresenter)
-				{
-					i = new Intent (_application.CurrentActivity, typeof(StockPriceListActivity));
-				} else if (presenter is StockChartPresenter) {
-					i = new Intent (_application.CurrentActivity, typeof(StockChartActivity));
-				}
+                if (presenter is StockPriceListPresenter) {
+                    i = new Intent (_application.CurrentActivity, typeof(StockPriceListActivity));
+                } else if (presenter is StockChartPresenter) {
+                    i = new Intent (_application.CurrentActivity, typeof(StockChartActivity));
+                }
 
-				if(i != null) {
-					_application.CurrentActivity.StartActivity (i);
-				}
-			}
-		}
-		#endregion
+                if (i != null) {
+                    _application.CurrentActivity.StartActivity (i);
+                }
+            }
+        }
 
-	}
+        #endregion
+    }
 }
 

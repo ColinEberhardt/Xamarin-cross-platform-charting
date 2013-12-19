@@ -12,22 +12,23 @@ using ShinobiStockChart.Presenter.Service;
 
 namespace ShinobiStockChart.Android.Service
 {
-	class MarshalInvokeService : IMarshalInvokeService
-	{
-		private ShinobiStockChartApplication _application;
+    class MarshalInvokeService : IMarshalInvokeService
+    {
+        private ShinobiStockChartApplication _application;
 
-		public MarshalInvokeService(ShinobiStockChartApplication application)
-		{
-			_application = application;
-		}
-			
-		#region IMarshalInvokeService implementation
-		public void Invoke (Action action)
-		{
-			_application.CurrentActivity.RunOnUiThread (() => action());
-		}
-		#endregion
+        public MarshalInvokeService (ShinobiStockChartApplication application)
+        {
+            _application = application;
+        }
 
-	}
+        #region IMarshalInvokeService implementation
+
+        public void Invoke (Action action)
+        {
+            _application.CurrentActivity.RunOnUiThread (() => action ());
+        }
+
+        #endregion
+    }
 }
 

@@ -16,108 +16,114 @@ using Android.Graphics;
 
 namespace ShinobiStockChart.Android
 {
+    [Activity (MainLauncher = true)]
+    public class StockPriceListActivity : Activity, StockPriceListPresenter.View
+    {
+        private List<StockItem> _prices;
 
-	[Activity (MainLauncher = true)]
-	public class StockPriceListActivity : Activity, StockPriceListPresenter.View
-	{
-		private List<StockItem> _prices;
+        #region View implementation
 
-		#region View implementation
-		public event EventHandler<StockSelectedEventArgs> StockSelected = delegate { };
-		public void SetStockPrices (List<StockItem> prices)
-		{
-			_prices = prices;
-			_listView.Adapter = new StockPriceListAdapter (this, _prices);
-		}
-		#endregion
+        public event EventHandler<StockSelectedEventArgs> StockSelected = delegate { };
 
-		private StockPriceListPresenter _presenter;
-		private ListView _listView;
+        public void SetStockPrices (List<StockItem> prices)
+        {
+            _prices = prices;
+            _listView.Adapter = new StockPriceListAdapter (this, _prices);
+        }
 
-		protected override void OnCreate(Bundle bundle)
-		{
-			base.OnCreate (bundle);
+        #endregion
 
-			// Manage the views
-			SetContentView (Resource.Layout.StockPriceListActivityLayout);
-			_listView = FindViewById<ListView> (Resource.Id.stock_list);
+        private StockPriceListPresenter _presenter;
+        private ListView _listView;
 
-			// Set up the correct properties on the application
-			var app = ShinobiStockChartApplication.GetApplication (this);
-			app.CurrentActivity = this;
+        protected override void OnCreate (Bundle bundle)
+        {
+            base.OnCreate (bundle);
 
-			// Prepare the services
-			var uiMarshal = new MarshalInvokeService (app);
-			var appStatus = new AppStatusService ();
-			var navigation = new NavigationService (app);
+            // Manage the views
+            SetContentView (Resource.Layout.StockPriceListActivityLayout);
+            _listView = FindViewById<ListView> (Resource.Id.stock_list);
 
-			// Create the presenter
-			_presenter = new StockPriceListPresenter (appStatus, uiMarshal, navigation);
-			_presenter.SetView (this);
-			app.Presenter = _presenter;
+            // Set up the correct properties on the application
+            var app = ShinobiStockChartApplication.GetApplication (this);
+            app.CurrentActivity = this;
 
-			// Set up click handling
-			_listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
-				var stockItem = _prices[e.Position];
-				StockSelected(this, new StockSelectedEventArgs (stockItem));
-			};
+            // Prepare the services
+            var uiMarshal = new MarshalInvokeService (app);
+            var appStatus = new AppStatusService ();
+            var navigation = new NavigationService (app);
 
-			// Apply the title
-			ActionBar.Title = _presenter.Title;
-		}
+            // Create the presenter
+            _presenter = new StockPriceListPresenter (appStatus, uiMarshal, navigation);
+            _presenter.SetView (this);
+            app.Presenter = _presenter;
 
-		private class StockPriceListAdapter : BaseAdapter<StockItem>
-		{
-			private List<StockItem> _items;
-			private Activity _context;
+            // Set up click handling
+            _listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
+                var stockItem = _prices [e.Position];
+                StockSelected (this, new StockSelectedEventArgs (stockItem));
+            };
 
-			public StockPriceListAdapter (Activity context, List<StockItem> items)
-			{
-				_context = context;
-				_items = items;
-			}
-				
-			#region implemented abstract members of BaseAdapter
-			public override long GetItemId (int position)
-			{
-				return position;
-			}
-			public override View GetView (int position, View convertView, ViewGroup parent)
-			{
-				var stockItem = _items [position];
-				View view = convertView;
-				if (view == null) {
-					// Haven't been provided with a row to re-use, so let's create a new one
-					view = _context.LayoutInflater.Inflate (Resource.Layout.StockItemListViewRow, null);
-				}
-				// Set the stock name
-				view.FindViewById<TextView> (Resource.Id.text_ticker).Text = stockItem.Symbol;
-				// Set the stock price 
-				ChangeIndicatorTextView priceView = view.FindViewById<ChangeIndicatorTextView> (Resource.Id.text_price);
-				priceView.Value = stockItem.Price;
-				// Set the colour of the price
-				if(stockItem.Change < 0) {
-					priceView.Direction = ChangeIndicatorTextView.ChangeDirection.Decreasing;
-				} else if(stockItem.Change > 0) {
-					priceView.Direction = ChangeIndicatorTextView.ChangeDirection.Increasing;
-				} else {
-					priceView.Direction = ChangeIndicatorTextView.ChangeDirection.NoChange;
-				}
-				return view;
-			}
-			public override int Count {
-				get {
-					return _items.Count;
-				}
-			}
-			public override StockItem this [int index] {
-				get {
-					return _items [index];
-				}
-			}
-			#endregion
-		}
+            // Apply the title
+            ActionBar.Title = _presenter.Title;
+        }
 
-	}
+        private class StockPriceListAdapter : BaseAdapter<StockItem>
+        {
+            private List<StockItem> _items;
+            private Activity _context;
+
+            public StockPriceListAdapter (Activity context, List<StockItem> items)
+            {
+                _context = context;
+                _items = items;
+            }
+
+            #region implemented abstract members of BaseAdapter
+
+            public override long GetItemId (int position)
+            {
+                return position;
+            }
+
+            public override View GetView (int position, View convertView, ViewGroup parent)
+            {
+                var stockItem = _items [position];
+                View view = convertView;
+                if (view == null) {
+                    // Haven't been provided with a row to re-use, so let's create a new one
+                    view = _context.LayoutInflater.Inflate (Resource.Layout.StockItemListViewRow, null);
+                }
+                // Set the stock name
+                view.FindViewById<TextView> (Resource.Id.text_ticker).Text = stockItem.Symbol;
+                // Set the stock price 
+                ChangeIndicatorTextView priceView = view.FindViewById<ChangeIndicatorTextView> (Resource.Id.text_price);
+                priceView.Value = stockItem.Price;
+                // Set the colour of the price
+                if (stockItem.Change < 0) {
+                    priceView.Direction = ChangeIndicatorTextView.ChangeDirection.Decreasing;
+                } else if (stockItem.Change > 0) {
+                    priceView.Direction = ChangeIndicatorTextView.ChangeDirection.Increasing;
+                } else {
+                    priceView.Direction = ChangeIndicatorTextView.ChangeDirection.NoChange;
+                }
+                return view;
+            }
+
+            public override int Count {
+                get {
+                    return _items.Count;
+                }
+            }
+
+            public override StockItem this [int index] {
+                get {
+                    return _items [index];
+                }
+            }
+
+            #endregion
+        }
+    }
 }
 

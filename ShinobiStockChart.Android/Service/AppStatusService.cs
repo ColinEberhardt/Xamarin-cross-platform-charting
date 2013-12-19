@@ -12,16 +12,17 @@ using ShinobiStockChart.Presenter.Service;
 
 namespace ShinobiStockChart.Android
 {
-	class AppStatusService : IAppStatusService
-	{
+    class AppStatusService : IAppStatusService
+    {
+        #region IAppStatusService implementation
 
-		#region IAppStatusService implementation
-		public bool NetworkActivityIndicatorVisible {
-			set {
+        public bool NetworkActivityIndicatorVisible {
+            set {
 
-			}
-		}
-		#endregion
-	}
+            }
+        }
+
+        #endregion
+    }
 }
 

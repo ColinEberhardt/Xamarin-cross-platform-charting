@@ -11,37 +11,33 @@ using Android.Widget;
 
 namespace ShinobiStockChart.Android
 {
-	[Application]
-	class ShinobiStockChartApplication : Application
-	{
-
-		public ShinobiStockChartApplication ()
+    [Application]
+    class ShinobiStockChartApplication : Application
+    {
+        public ShinobiStockChartApplication ()
 			: base ()
-		{
-		}
+        {
+        }
 
+        public ShinobiStockChartApplication (IntPtr javaReference, JniHandleOwnership transfer)
+			: base (javaReference, transfer)
+        {
+        }
 
-		public ShinobiStockChartApplication(IntPtr javaReference, JniHandleOwnership transfer)
-			: base(javaReference, transfer)
-		{
-		}
+        public Activity CurrentActivity {
+            get;
+            set;
+        }
 
-		public Activity CurrentActivity {
-			get;
-			set;
-		}
+        public object Presenter {
+            get;
+            set;
+        }
 
-		public object Presenter {
-			get;
-			set;
-		}
-
-		public static ShinobiStockChartApplication GetApplication(Context context)
-		{
-			return (ShinobiStockChartApplication)context.ApplicationContext;
-		}
-
-
-	}
+        public static ShinobiStockChartApplication GetApplication (Context context)
+        {
+            return (ShinobiStockChartApplication)context.ApplicationContext;
+        }
+    }
 }
 
