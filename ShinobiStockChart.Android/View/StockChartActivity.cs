@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using ShinobiStockChart.Presenter;
 using Com.ShinobiControls.Charts;
+using ShinobiStockChart.Android.ExtensionMethods;
 
 namespace ShinobiStockChart.Android
 {
@@ -66,7 +67,9 @@ namespace ShinobiStockChart.Android
 			_chart.SetLicenseKey ("<INSERT LICENSE KEY HERE>");
 		
 			_chart.XAxis = new DateTimeAxis ();
+			_chart.XAxis.EnableGestures ();
 			_chart.YAxis = new NumberAxis ();
+			_chart.YAxis.EnableGestures ();
 
 			// Set the title
 			if (_chartTitle != null) {
