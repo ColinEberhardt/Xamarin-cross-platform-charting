@@ -33,6 +33,11 @@ namespace ShinobiStockChart.Android
 
 		public string ChartTitle {
 			set {
+				_chartTitle = value;
+				var symbolTextView = FindViewById<TextView> (Resource.Id.symbolTextView);
+				if(symbolTextView != null) {
+					symbolTextView.Text = _chartTitle;
+				}
 			}
 		}
 
@@ -41,6 +46,7 @@ namespace ShinobiStockChart.Android
 		private StockChartPresenter _presenter;
 		private IShinobiChart _chart;
 		private LineSeries _priceSeries;
+		private String _chartTitle;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -61,6 +67,11 @@ namespace ShinobiStockChart.Android
 		
 			_chart.XAxis = new DateTimeAxis ();
 			_chart.YAxis = new NumberAxis ();
+
+			// Set the title
+			if (_chartTitle != null) {
+				FindViewById<TextView> (Resource.Id.symbolTextView).Text = _chartTitle;
+			}
 		
 		}
 			

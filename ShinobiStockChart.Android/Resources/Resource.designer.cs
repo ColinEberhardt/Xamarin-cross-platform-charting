@@ -63,20 +63,23 @@ namespace ShinobiStockChart.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int chart = 2131099648;
-			
-			// aapt resource value: 0x7f060003
-			public const int linearLayout1 = 2131099651;
+			// aapt resource value: 0x7f060001
+			public const int chart = 2131099649;
 			
 			// aapt resource value: 0x7f060004
-			public const int stock_list = 2131099652;
+			public const int linearLayout1 = 2131099652;
+			
+			// aapt resource value: 0x7f060005
+			public const int stock_list = 2131099653;
+			
+			// aapt resource value: 0x7f060000
+			public const int symbolTextView = 2131099648;
+			
+			// aapt resource value: 0x7f060003
+			public const int text_price = 2131099651;
 			
 			// aapt resource value: 0x7f060002
-			public const int text_price = 2131099650;
-			
-			// aapt resource value: 0x7f060001
-			public const int text_ticker = 2131099649;
+			public const int text_ticker = 2131099650;
 			
 			static Id()
 			{
