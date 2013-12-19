@@ -11,6 +11,7 @@ using Android.Widget;
 using ShinobiStockChart.Presenter;
 using Com.ShinobiControls.Charts;
 using ShinobiStockChart.Android.Utilities;
+using Android.Support.V4.App;
 
 namespace ShinobiStockChart.Android
 {
@@ -84,7 +85,21 @@ namespace ShinobiStockChart.Android
 			if (_chartTitle != null) {
 				FindViewById<TextView> (Resource.Id.symbolTextView).Text = _chartTitle;
 			}
+
+			// Enable the home button
+			ActionBar.SetDisplayHomeAsUpEnabled (true);
+			ActionBar.SetHomeButtonEnabled (true);
+			ActionBar.Title = _presenter.Title;
 		
+		}
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			if(item.ItemId == global::Android.Resource.Id.Home) {
+				NavUtils.NavigateUpTo (this, new Intent(this, typeof(StockPriceListActivity)));
+				return true;
+			}
+			return base.OnOptionsItemSelected(item);
 		}
 			
 	}

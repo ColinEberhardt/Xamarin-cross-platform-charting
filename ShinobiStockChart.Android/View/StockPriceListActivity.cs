@@ -61,6 +61,9 @@ namespace ShinobiStockChart.Android
 				var stockItem = _prices[e.Position];
 				StockSelected(this, new StockSelectedEventArgs (stockItem));
 			};
+
+			// Apply the title
+			ActionBar.Title = _presenter.Title;
 		}
 
 		private class StockPriceListAdapter : BaseAdapter<StockItem>
