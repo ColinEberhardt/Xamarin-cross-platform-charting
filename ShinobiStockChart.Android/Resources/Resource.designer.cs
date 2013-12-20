@@ -41,6 +41,34 @@ namespace ShinobiStockChart.Android
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f040001
+			public const int chart_axis = 2130968577;
+			
+			// aapt resource value: 0x7f040000
+			public const int chart_background = 2130968576;
+			
+			// aapt resource value: 0x7f040003
+			public const int chart_series1_area = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int chart_series1_area_low = 2130968580;
+			
+			// aapt resource value: 0x7f040002
+			public const int chart_series1_line = 2130968578;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Drawable
 		{
 			
@@ -63,23 +91,23 @@ namespace ShinobiStockChart.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060001
-			public const int chart = 2131099649;
+			// aapt resource value: 0x7f070001
+			public const int chart = 2131165185;
 			
-			// aapt resource value: 0x7f060004
-			public const int linearLayout1 = 2131099652;
+			// aapt resource value: 0x7f070004
+			public const int linearLayout1 = 2131165188;
 			
-			// aapt resource value: 0x7f060005
-			public const int stock_list = 2131099653;
+			// aapt resource value: 0x7f070005
+			public const int stock_list = 2131165189;
 			
-			// aapt resource value: 0x7f060000
-			public const int symbolTextView = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int symbolTextView = 2131165184;
 			
-			// aapt resource value: 0x7f060003
-			public const int text_price = 2131099651;
+			// aapt resource value: 0x7f070003
+			public const int text_price = 2131165187;
 			
-			// aapt resource value: 0x7f060002
-			public const int text_ticker = 2131099650;
+			// aapt resource value: 0x7f070002
+			public const int text_ticker = 2131165186;
 			
 			static Id()
 			{
@@ -116,11 +144,11 @@ namespace ShinobiStockChart.Android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int app_name = 2131034113;
 			
-			// aapt resource value: 0x7f040000
-			public const int hello = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int hello = 2131034112;
 			
 			static String()
 			{
@@ -135,8 +163,8 @@ namespace ShinobiStockChart.Android
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int Mono_Android_Theme_Splash = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int Mono_Android_Theme_Splash = 2131099648;
 			
 			static Style()
 			{

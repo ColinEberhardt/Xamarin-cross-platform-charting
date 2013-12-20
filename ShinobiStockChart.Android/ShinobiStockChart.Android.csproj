@@ -73,6 +73,7 @@
     <AndroidResource Include="Resources\layout\StockPriceListActivityLayout.axml" />
     <AndroidResource Include="Resources\layout\StockItemListViewRow.axml" />
     <AndroidResource Include="Resources\layout\StockChartActivityLayout.axml" />
+    <AndroidResource Include="Resources\values\Color.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

@@ -12,6 +12,7 @@ using ShinobiStockChart.Presenter;
 using Com.ShinobiControls.Charts;
 using ShinobiStockChart.Android.Utilities;
 using Android.Support.V4.App;
+using Android.Graphics;
 
 namespace ShinobiStockChart.Android
 {
@@ -26,6 +27,11 @@ namespace ShinobiStockChart.Android
             adapter.AddAll (data);
             if (_priceSeries == null) {
                 _priceSeries = new LineSeries ();
+                // Set some styles
+                _priceSeries.Style.AreaColor = Resources.GetColor (Resource.Color.chart_series1_area);
+                _priceSeries.Style.AreaColorGradient = Resources.GetColor (Resource.Color.chart_series1_area_low);
+                _priceSeries.Style.AreaLineColor = Resources.GetColor (Resource.Color.chart_series1_line);
+                _priceSeries.Style.FillStyle = SeriesStyle.FillStyle.Gradient;
                 _chart.AddSeries (_priceSeries);
             }
             _priceSeries.DataAdapter = new SimpleDataAdapter ();
@@ -72,6 +78,7 @@ namespace ShinobiStockChart.Android
             _presenter = app.Presenter as StockChartPresenter;
             _presenter.SetView (this);
 
+            // Get the chart and configure it
             var chartFrag = FragmentManager.FindFragmentById<ChartFragment> (Resource.Id.chart);
             _chart = chartFrag.ShinobiChart;
             _chart.SetLicenseKey ("<PUT YOUR LICENSE KEY HERE>");
@@ -80,6 +87,17 @@ namespace ShinobiStockChart.Android
             _chart.XAxis.EnableGestures ();
             _chart.YAxis = new NumberAxis ();
             _chart.YAxis.EnableGestures ();
+
+            // Set the style
+            _chart.Style.BackgroundColor = Resources.GetColor (Resource.Color.chart_background);
+            _chart.Style.CanvasBackgroundColor = Color.Transparent;
+            _chart.Style.PlotAreaBackgroundColor = Color.Transparent;
+            _chart.XAxis.Style.LineColor = Resources.GetColor (Resource.Color.chart_axis);
+            _chart.YAxis.Style.LineColor = Resources.GetColor (Resource.Color.chart_axis);
+            _chart.XAxis.Style.TickStyle.LabelColor = Resources.GetColor (Resource.Color.chart_axis);
+            _chart.YAxis.Style.TickStyle.LabelColor = Resources.GetColor (Resource.Color.chart_axis);
+            _chart.XAxis.Style.TickStyle.LineColor = Resources.GetColor (Resource.Color.chart_axis);
+            _chart.YAxis.Style.TickStyle.LineColor = Resources.GetColor (Resource.Color.chart_axis);
 
             // Set the title
             if (_chartTitle != null) {
