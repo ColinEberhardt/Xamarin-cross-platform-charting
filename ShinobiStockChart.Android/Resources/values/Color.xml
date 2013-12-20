@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <color name="chart_background">#000</color>
+    <color name="chart_axis">#ffffff</color>
+    <color name="chart_series1_line">#a6a6a6</color>
+    <color name="chart_series1_area">#10137b</color>
+    <color name="chart_series1_area_low">#000029</color>
+</resources>
