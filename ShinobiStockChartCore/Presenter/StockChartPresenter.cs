@@ -58,21 +58,16 @@ namespace ShinobiStockChart.Presenter
 
         void HandleMovingAverageRequested (object sender, MovingAverageRequestedEventArgs e)
         {
-            // Calculate the cumulative sum
-            var cumulativeSum = _chartData
-                .Select (dp => dp.YValue)
-                .CumulativeSum ()
+            // Create the moving average values
+            var movingAverage = _chartData
+                .Window (e.NumberOfDays, window => {
+                    return new ChartDataPoint () {
+                        XValue = window.Last ().XValue,
+                        YValue = window.Select (dp => dp.YValue).Average ()
+                    };
+                })
                 .ToList ();
-
-            // Calculate the moving average
-            var movingAverage = new List<ChartDataPoint> ();
-            for(int i = e.NumberOfDays; i<cumulativeSum.Count; i++) {
-                double value = (cumulativeSum [i] - cumulativeSum [i - e.NumberOfDays]) / e.NumberOfDays;
-                movingAverage.Add (new ChartDataPoint() {
-                    XValue = _chartData[i].XValue,
-                    YValue = value
-                });
-            }
+          
             // Send the result back to the the view
             _view.UpdateChartWithMovingAverage (movingAverage);
         }
@@ -117,6 +112,8 @@ namespace ShinobiStockChart.Presenter
                     });
                 }
             }
+
+            seriesData.Sort ((dp1, dp2) => dp1.XValue.CompareTo (dp2.XValue));
 
             return seriesData;
         }

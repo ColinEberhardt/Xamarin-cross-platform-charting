@@ -5,12 +5,17 @@ namespace ShinobiStockChart.Utilities
 {
     public static class ExtensionMethods
     {
-        public static IEnumerable<double> CumulativeSum(this IEnumerable<double> sequence) {
-            double sum = 0;
-            foreach(var item in sequence)
+        // Perform a given function in a windowed manner on the sequence
+        public static IEnumerable<T> Window<T>(this IEnumerable<T> sequence,
+            int period, Func<IEnumerable<T>, T> windowOperation) {
+            var windowSamples = new Queue<T> ();
+            foreach (var item in sequence)
             {
-                sum += item;
-                yield return sum;
+                windowSamples.Enqueue (item);
+                if(windowSamples.Count > period) {
+                    windowSamples.Dequeue ();
+                    yield return windowOperation (windowSamples);
+                }
             }
         }
     }
