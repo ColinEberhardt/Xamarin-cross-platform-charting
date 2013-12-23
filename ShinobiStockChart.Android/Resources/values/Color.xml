@@ -5,4 +5,5 @@
     <color name="chart_series1_line">#a6a6a6</color>
     <color name="chart_series1_area">#10137b</color>
     <color name="chart_series1_area_low">#000029</color>
+    <color name="chart_series2_line">#f00</color>
 </resources>

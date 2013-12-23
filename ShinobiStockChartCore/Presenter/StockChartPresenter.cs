@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ShinobiStockChart.Presenter.Service;
 using System.IO;
+using ShinobiStockChart.Utilities;
 
 namespace ShinobiStockChart.Presenter
 {
@@ -13,6 +14,10 @@ namespace ShinobiStockChart.Presenter
         public interface View 
         {
             void UpdateChartWithData (List<ChartDataPoint> data);
+
+            void UpdateChartWithMovingAverage (List<ChartDataPoint> data);
+
+            event EventHandler<MovingAverageRequestedEventArgs> MovingAverageRequested;
 
             string ChartTitle { set; }
         }
@@ -42,10 +47,34 @@ namespace ShinobiStockChart.Presenter
             _view = view;
             _view.ChartTitle = _stockItem.Symbol;
 
+            // Listen to moving average request events
+            _view.MovingAverageRequested += HandleMovingAverageRequested;
+
             // if we already have data - supply it to the chart
             if (_chartData != null) {
                 _view.UpdateChartWithData (_chartData);
             }
+        }
+
+        void HandleMovingAverageRequested (object sender, MovingAverageRequestedEventArgs e)
+        {
+            // Calculate the cumulative sum
+            var cumulativeSum = _chartData
+                .Select (dp => dp.YValue)
+                .CumulativeSum ()
+                .ToList ();
+
+            // Calculate the moving average
+            var movingAverage = new List<ChartDataPoint> ();
+            for(int i = e.NumberOfDays; i<cumulativeSum.Count; i++) {
+                double value = (cumulativeSum [i] - cumulativeSum [i - e.NumberOfDays]) / e.NumberOfDays;
+                movingAverage.Add (new ChartDataPoint() {
+                    XValue = _chartData[i].XValue,
+                    YValue = value
+                });
+            }
+            // Send the result back to the the view
+            _view.UpdateChartWithMovingAverage (movingAverage);
         }
 
         private void FetchPriceData (string symbol)

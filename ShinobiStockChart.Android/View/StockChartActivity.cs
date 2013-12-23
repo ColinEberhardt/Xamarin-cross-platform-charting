@@ -23,8 +23,6 @@ namespace ShinobiStockChart.Android
 
         public void UpdateChartWithData (List<ChartDataPoint> data)
         {
-            var adapter = new SimpleDataAdapter ();
-            adapter.AddAll (data);
             if (_priceSeries == null) {
                 _priceSeries = new LineSeries ();
                 // Set some styles
@@ -50,11 +48,29 @@ namespace ShinobiStockChart.Android
             }
         }
 
+        public event EventHandler<MovingAverageRequestedEventArgs> MovingAverageRequested = delegate { };
+
+        public void UpdateChartWithMovingAverage (List<ChartDataPoint> data)
+        {
+            if(_movingAverageSeries == null) {
+                _movingAverageSeries = new LineSeries ();
+                _movingAverageSeries.Style.LineColor = Resources.GetColor (Resource.Color.chart_series2_line);
+                _chart.AddSeries (_movingAverageSeries);
+            }
+            _movingAverageSeries.DataAdapter = new SimpleDataAdapter ();
+            _movingAverageSeries.DataAdapter.AddAll (data
+                .Select (dp => 
+                    new DataPoint (DateUtils.ConvertToJavaDate (dp.XValue), dp.YValue))
+                .ToList ()
+            );
+        }
+
         #endregion
 
         private StockChartPresenter _presenter;
         private IShinobiChart _chart;
         private LineSeries _priceSeries;
+        private LineSeries _movingAverageSeries;
         private String _chartTitle;
         private ProgressDialog _progressDialog;
 
@@ -108,6 +124,14 @@ namespace ShinobiStockChart.Android
             ActionBar.SetDisplayHomeAsUpEnabled (true);
             ActionBar.SetHomeButtonEnabled (true);
             ActionBar.Title = _presenter.Title;
+
+            // Wire up the moving average button
+            var createMAButton = FindViewById<Button> (Resource.Id.createMovingAverage);
+            createMAButton.Click += (sender, e) => {
+                var maEditText = FindViewById<EditText> (Resource.Id.movingAverageLength);
+                var numberOfDays = int.Parse (maEditText.Text.ToString ());
+                MovingAverageRequested (this, new MovingAverageRequestedEventArgs (numberOfDays));
+            };
 		
         }
 
