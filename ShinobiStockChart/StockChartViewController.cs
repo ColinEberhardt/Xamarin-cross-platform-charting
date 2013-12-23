@@ -40,6 +40,20 @@ namespace ShinobiStockChart
             chartHostView.Hidden = false;
         }
 
+        public event EventHandler<MovingAverageRequestedEventArgs> MovingAverageRequested = delegate { };
+
+        public void UpdateChartWithMovingAverage (List<ChartDataPoint> data)
+        {
+            _chartDataSource.MovingAverageDataPoints = data.Select (dp => new SChartDataPoint () {
+                XValue = dp.XValue.ToNSDate (),
+                YValue = new NSNumber (dp.YValue)
+            })
+                .Cast<SChartData> ()
+                .ToList ();
+            _chart.ReloadData ();
+            _chart.RedrawChart ();
+        }
+
         #endregion
 
         private ShinobiChart _chart;
@@ -89,6 +103,13 @@ namespace ShinobiStockChart
       
             chartHostView.Hidden = true;
             chartHostView.InsertSubview (_chart, 0);
+
+            // Wire up the moving average button
+            btnCreateMovingAverage.TouchUpInside += (sender, e) => {
+                movingAveragePeriod.ResignFirstResponder ();
+                var maPeriod = int.Parse (movingAveragePeriod.Text);
+                MovingAverageRequested(this, new MovingAverageRequestedEventArgs (maPeriod));
+            };
         }
 
         private void ConfigureAxis (SChartAxis axis)
@@ -103,6 +124,7 @@ namespace ShinobiStockChart
         private class StockChartDataSource : SChartDataSource
         {
             private List<SChartData> _dataPoints;
+            private List<SChartData> _movingAverageDataPoints;
 
             public StockChartDataSource ()
             {
@@ -115,6 +137,12 @@ namespace ShinobiStockChart
                 }
             }
 
+            public List<SChartData> MovingAverageDataPoints {
+                set {
+                    _movingAverageDataPoints = value;
+                }
+            }
+
             public override SChartData GetDataPoint (ShinobiChart chart, int dataIndex, int seriesIndex)
             {
                 // no-op
@@ -123,29 +151,47 @@ namespace ShinobiStockChart
 
             protected override SChartData[] GetDataPoints (ShinobiChart chart, int seriesIndex)
             {
-                return _dataPoints.ToArray ();
+                if (seriesIndex == 0) {
+                    return _dataPoints.ToArray ();
+                } else {
+                    return _movingAverageDataPoints.ToArray ();
+                }
             }
 
             public override int GetNumberOfSeries (ShinobiChart chart)
             {
-                return 1;
+                if(_movingAverageDataPoints != null) {
+                    return 2;
+                } else {
+                    return 1;
+                }
             }
 
             public override int GetNumberOfDataPoints (ShinobiChart chart, int seriesIndex)
             {
-                return _dataPoints.Count;
+                if(seriesIndex == 0) {
+                    return _dataPoints.Count;
+                } else {
+                    return _movingAverageDataPoints.Count;
+                }
             }
 
             public override SChartSeries GetSeries (ShinobiChart chart, int index)
             {
                 var lineSeries = new SChartLineSeries ();
          
-                lineSeries.Style.LineColor = UIColor.FromRGB (166, 166, 166);
-                lineSeries.Style.AreaColor = UIColor.FromRGB (16, 99, 123);
-                lineSeries.Style.AreaColorLowGradient = UIColor.FromRGB (0, 0, 41);
-                lineSeries.Style.ShowFill = true;
-        
-                lineSeries.CrosshairEnabled = true;
+                if (index == 0) {
+                    lineSeries.Style.LineColor = UIColor.FromRGB (166, 166, 166);
+                    lineSeries.Style.AreaColor = UIColor.FromRGB (16, 99, 123);
+                    lineSeries.Style.AreaColorLowGradient = UIColor.FromRGB (0, 0, 41);
+                    lineSeries.Style.ShowFill = true;
+                    lineSeries.CrosshairEnabled = true;
+                } else {
+                    lineSeries.Style.LineColor = UIColor.Red;
+                    lineSeries.Style.LineWidth = 2.0;
+                    lineSeries.Style.ShowFill = false;
+                    lineSeries.CrosshairEnabled = false;
+                }
         
                 return lineSeries;
             }
