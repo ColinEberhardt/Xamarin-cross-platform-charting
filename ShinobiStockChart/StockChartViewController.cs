@@ -166,7 +166,8 @@ namespace ShinobiStockChart
 
             protected override SChartData[] GetDataPoints (ShinobiChart chart, int seriesIndex)
             {
-                if (seriesIndex == 0) {
+                // Bit convoluted to get the z-index correct
+                if(_movingAverageDataPoints == null || seriesIndex == 1) {
                     return _dataPoints.ToArray ();
                 } else {
                     return _movingAverageDataPoints.ToArray ();
@@ -184,7 +185,8 @@ namespace ShinobiStockChart
 
             public override int GetNumberOfDataPoints (ShinobiChart chart, int seriesIndex)
             {
-                if(seriesIndex == 0) {
+                // Bit convoluted to get the z-index correct
+                if(_movingAverageDataPoints == null || seriesIndex == 1) {
                     return _dataPoints.Count;
                 } else {
                     return _movingAverageDataPoints.Count;
@@ -195,7 +197,8 @@ namespace ShinobiStockChart
             {
                 var lineSeries = new SChartLineSeries ();
          
-                if (index == 0) {
+                // Bit convoluted to get the z-index correct
+                if (_movingAverageDataPoints == null || index == 1) {
                     lineSeries.Style.AreaLineColor = TintColor;
                     lineSeries.Style.AreaColor = TintColor.ColorWithAlpha (0.1f);
                     lineSeries.Style.AreaColorLowGradient = TintColor.ColorWithAlpha (0.8f);
@@ -203,8 +206,8 @@ namespace ShinobiStockChart
                     lineSeries.Style.ShowFill = true;
                     lineSeries.CrosshairEnabled = true;
                 } else {
-                    lineSeries.Style.LineColor = UIColor.Red;
-                    lineSeries.Style.LineWidth = 2.0;
+                    lineSeries.Style.LineColor = UIColor.Red.ColorWithAlpha (0.8f);
+                    lineSeries.Style.LineWidth = 1.0;
                     lineSeries.Style.ShowFill = false;
                     lineSeries.CrosshairEnabled = false;
                 }
