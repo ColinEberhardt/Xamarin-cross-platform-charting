@@ -23,8 +23,6 @@ namespace ShinobiStockChart.Android
 
         public void UpdateChartWithData (List<ChartDataPoint> data)
         {
-            var adapter = new SimpleDataAdapter ();
-            adapter.AddAll (data);
             if (_priceSeries == null) {
                 _priceSeries = new LineSeries ();
                 // Set some styles
@@ -32,6 +30,7 @@ namespace ShinobiStockChart.Android
                 _priceSeries.Style.AreaColorGradient = Resources.GetColor (Resource.Color.chart_series1_area_low);
                 _priceSeries.Style.AreaLineColor = Resources.GetColor (Resource.Color.chart_series1_line);
                 _priceSeries.Style.FillStyle = SeriesStyle.FillStyle.Gradient;
+                _priceSeries.Style.AreaLineWidth = 1.5f;
                 _chart.AddSeries (_priceSeries);
             }
             _priceSeries.DataAdapter = new SimpleDataAdapter ();
@@ -50,11 +49,30 @@ namespace ShinobiStockChart.Android
             }
         }
 
+        public event EventHandler<MovingAverageRequestedEventArgs> MovingAverageRequested = delegate { };
+
+        public void UpdateChartWithMovingAverage (List<ChartDataPoint> data)
+        {
+            if(_movingAverageSeries == null) {
+                _movingAverageSeries = new LineSeries ();
+                _movingAverageSeries.Style.LineColor = Resources.GetColor (Resource.Color.chart_series2_line);
+                _movingAverageSeries.Style.LineWidth = 1.5f;
+                _chart.AddSeries (_movingAverageSeries);
+            }
+            _movingAverageSeries.DataAdapter = new SimpleDataAdapter ();
+            _movingAverageSeries.DataAdapter.AddAll (data
+                .Select (dp => 
+                    new DataPoint (DateUtils.ConvertToJavaDate (dp.XValue), dp.YValue))
+                .ToList ()
+            );
+        }
+
         #endregion
 
         private StockChartPresenter _presenter;
         private IShinobiChart _chart;
         private LineSeries _priceSeries;
+        private LineSeries _movingAverageSeries;
         private String _chartTitle;
         private ProgressDialog _progressDialog;
 
@@ -108,16 +126,29 @@ namespace ShinobiStockChart.Android
             ActionBar.SetDisplayHomeAsUpEnabled (true);
             ActionBar.SetHomeButtonEnabled (true);
             ActionBar.Title = _presenter.Title;
-		
         }
 
         public override bool OnOptionsItemSelected (IMenuItem item)
         {
-            if (item.ItemId == global::Android.Resource.Id.Home) {
+            switch (item.ItemId) {
+            case global::Android.Resource.Id.Home:
                 NavUtils.NavigateUpTo (this, new Intent (this, typeof(StockPriceListActivity)));
                 return true;
+            case Resource.Id.action_add_moving_average:
+                var dialog = new MovingAveragePeriodDialogFragment ((period) => {
+                    MovingAverageRequested(this, new MovingAverageRequestedEventArgs (period));
+                });
+                dialog.Show(FragmentManager, "Moving Average Dialog");
+                return true;
+            default:
+                return base.OnOptionsItemSelected (item);
             }
-            return base.OnOptionsItemSelected (item);
+        }
+
+        public override bool OnCreateOptionsMenu (IMenu menu)
+        {
+            MenuInflater.Inflate (Resource.Menu.chart_action_bar_menu, menu);
+            return base.OnCreateOptionsMenu (menu);
         }
     }
 }

@@ -30,7 +30,6 @@ namespace ShinobiStockChart
       
             var mainView = new StocksListViewController (stockPriceListPresenter);
             navController.PushViewController (mainView, false);
-            navController.NavigationBar.TintColor = UIColor.DarkGray;
       
             window.RootViewController = navController;
             window.MakeKeyAndVisible ();

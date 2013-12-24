@@ -43,6 +43,12 @@ namespace ShinobiStockChart
             StockSelected(this, new StockSelectedEventArgs(item));
         }
 
+        public override void ViewWillAppear (bool animated)
+        {
+            stockListTable.DeselectRow (stockListTable.IndexPathForSelectedRow, animated);
+            base.ViewWillAppear (animated);
+        }
+
         // a table source that renders our list of stocks
         private class TableSource : UITableViewSource
         {

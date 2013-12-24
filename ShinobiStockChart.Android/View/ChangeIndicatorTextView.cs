@@ -46,11 +46,11 @@ namespace ShinobiStockChart.Android
         public ChangeDirection Direction {
             set {
                 if (value == ChangeDirection.Increasing) {
-                    SetTextColor (Color.Rgb (52, 255, 50));
+                    SetTextColor (Resources.GetColor (Resource.Color.change_indicator_increasing));
                 } else if (value == ChangeDirection.Decreasing) {
-                    SetTextColor (Color.Rgb (255, 50, 50));
+                    SetTextColor (Resources.GetColor (Resource.Color.change_indicator_decreasing));
                 } else {
-                    SetTextColor (Color.White);
+                    SetTextColor (Color.DarkGray);
                 }
             }
         }

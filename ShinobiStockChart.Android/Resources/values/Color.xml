@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <color name="chart_background">#000</color>
-    <color name="chart_axis">#ffffff</color>
-    <color name="chart_series1_line">#a6a6a6</color>
-    <color name="chart_series1_area">#10137b</color>
-    <color name="chart_series1_area_low">#000029</color>
+    <color name="chart_background">#eee</color>
+    <color name="chart_axis">#333</color>
+    <color name="chart_series1_line">#007aff</color>
+    <color name="chart_series1_area">#1a007aff</color>
+    <color name="chart_series1_area_low">#cc007aff</color>
+    <color name="chart_series2_line">#cf00</color>
+    <color name="change_indicator_increasing">#328232</color>
+    <color name="change_indicator_decreasing">#C83232</color>
 </resources>

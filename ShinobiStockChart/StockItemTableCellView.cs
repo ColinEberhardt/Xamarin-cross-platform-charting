@@ -47,11 +47,11 @@ namespace ShinobiStockChart
         public PriceDirection Direction {
             set {
                 if (value == PriceDirection.Falling) {
-                    stockPrice.TextColor = UIColor.FromRGB (255, 50, 50); 
+                    stockPrice.TextColor = UIColor.FromRGB (200, 50, 50); 
                 } else if (value == PriceDirection.Rising) {
-                    stockPrice.TextColor = UIColor.FromRGB (50, 255, 50); 
+                    stockPrice.TextColor = UIColor.FromRGB (50, 130, 50); 
                 } else {
-                    stockPrice.TextColor = UIColor.Black; 
+                    stockPrice.TextColor = UIColor.DarkTextColor; 
                 }
             }
         }

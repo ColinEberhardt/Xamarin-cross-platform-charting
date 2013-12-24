@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ShinobiStockChart.Presenter.Service;
 using System.IO;
+using ShinobiStockChart.Utilities;
 
 namespace ShinobiStockChart.Presenter
 {
@@ -13,6 +14,10 @@ namespace ShinobiStockChart.Presenter
         public interface View 
         {
             void UpdateChartWithData (List<ChartDataPoint> data);
+
+            void UpdateChartWithMovingAverage (List<ChartDataPoint> data);
+
+            event EventHandler<MovingAverageRequestedEventArgs> MovingAverageRequested;
 
             string ChartTitle { set; }
         }
@@ -42,10 +47,29 @@ namespace ShinobiStockChart.Presenter
             _view = view;
             _view.ChartTitle = _stockItem.Symbol;
 
+            // Listen to moving average request events
+            _view.MovingAverageRequested += HandleMovingAverageRequested;
+
             // if we already have data - supply it to the chart
             if (_chartData != null) {
                 _view.UpdateChartWithData (_chartData);
             }
+        }
+
+        void HandleMovingAverageRequested (object sender, MovingAverageRequestedEventArgs e)
+        {
+            // Create the moving average values
+            var movingAverage = _chartData
+                .Window (e.NumberOfDays, window => {
+                    return new ChartDataPoint () {
+                        XValue = window.Last ().XValue,
+                        YValue = window.Select (dp => dp.YValue).Average ()
+                    };
+                })
+                .ToList ();
+          
+            // Send the result back to the the view
+            _view.UpdateChartWithMovingAverage (movingAverage);
         }
 
         private void FetchPriceData (string symbol)
@@ -88,6 +112,8 @@ namespace ShinobiStockChart.Presenter
                     });
                 }
             }
+
+            seriesData.Sort ((dp1, dp2) => dp1.XValue.CompareTo (dp2.XValue));
 
             return seriesData;
         }
