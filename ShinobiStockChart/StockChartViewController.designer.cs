@@ -13,19 +13,10 @@ namespace ShinobiStockChart
 	partial class StockChartViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIButton btnCreateMovingAverage { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UIView chartHostView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITextField movingAveragePeriod { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UIView progressIndicatorView { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel symbolLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -34,24 +25,9 @@ namespace ShinobiStockChart
 				chartHostView = null;
 			}
 
-			if (movingAveragePeriod != null) {
-				movingAveragePeriod.Dispose ();
-				movingAveragePeriod = null;
-			}
-
 			if (progressIndicatorView != null) {
 				progressIndicatorView.Dispose ();
 				progressIndicatorView = null;
-			}
-
-			if (symbolLabel != null) {
-				symbolLabel.Dispose ();
-				symbolLabel = null;
-			}
-
-			if (btnCreateMovingAverage != null) {
-				btnCreateMovingAverage.Dispose ();
-				btnCreateMovingAverage = null;
 			}
 		}
 	}

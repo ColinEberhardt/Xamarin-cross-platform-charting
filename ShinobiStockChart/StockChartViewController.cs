@@ -17,8 +17,8 @@ namespace ShinobiStockChart
 
         public string ChartTitle {
             set {
-                if (symbolLabel != null) {
-                    symbolLabel.Text = value;
+                if(_chart != null) {
+                    _chart.Title = value;
                 } else {
                     _chartTitle = value;
                 }
@@ -57,10 +57,8 @@ namespace ShinobiStockChart
         #endregion
 
         private ShinobiChart _chart;
-
-        private StockChartDataSource _chartDataSource;
-
         private string _chartTitle;
+        private StockChartDataSource _chartDataSource;
 
         public StockChartViewController (StockChartPresenter presenter) : base ("StockChartViewController", null)
         {
@@ -72,20 +70,18 @@ namespace ShinobiStockChart
         {
             base.ViewDidLoad ();
 
-            if (_chartTitle != null) {
-                symbolLabel.Text = _chartTitle;
-            }
-
             // create the chart and add to the view      
             _chart = new ShinobiChart (chartHostView.Bounds);
 			_chart.LicenseKey = @"<PUT YOUR LICENSE KEY HERE>";
       
+            if(_chartTitle != null) {
+                _chart.Title = _chartTitle;
+            }
+
             // set the datasource
             _chartDataSource = new StockChartDataSource ();
+            _chartDataSource.TintColor = View.TintColor;
             _chart.DataSource = _chartDataSource;
-      
-            _chart.Theme = new SChartMidnightTheme ();
-            View.BackgroundColor = _chart.Theme.ChartStyle.BackgroundColor;
  
             // add a couple of axes
             _chart.XAxis = new SChartDateTimeAxis ();
@@ -104,12 +100,28 @@ namespace ShinobiStockChart
             chartHostView.Hidden = true;
             chartHostView.InsertSubview (_chart, 0);
 
-            // Wire up the moving average button
-            btnCreateMovingAverage.TouchUpInside += (sender, e) => {
-                movingAveragePeriod.ResignFirstResponder ();
-                var maPeriod = int.Parse (movingAveragePeriod.Text);
-                MovingAverageRequested(this, new MovingAverageRequestedEventArgs (maPeriod));
-            };
+            // Add a nav bar button to add a trend line
+            NavigationItem.SetRightBarButtonItem (
+                new UIBarButtonItem (UIBarButtonSystemItem.Compose, (sender, e) => {
+                    // Present an alert view
+                    var alertView = new UIAlertView ("Moving Average",
+                                        "Set the period of the moving average",
+                                        null,
+                                        "OK",
+                                        new string[] { "Cancel" });
+                    alertView.Clicked += (alertSender, button) => {
+                        if(button.ButtonIndex == 0) {
+                            MovingAverageRequested(this, new MovingAverageRequestedEventArgs (
+                                int.Parse (alertView.GetTextField (0).Text))
+                            );
+                        }
+                    };
+                    alertView.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
+                    alertView.GetTextField (0).Placeholder = "Moving Average Period";
+                    alertView.GetTextField (0).KeyboardType = UIKeyboardType.NumberPad;
+                    alertView.Show ();
+                })
+                , true);
         }
 
         private void ConfigureAxis (SChartAxis axis)
@@ -118,6 +130,7 @@ namespace ShinobiStockChart
             axis.EnableGestureZooming = true;
             axis.EnableMomentumPanning = true;
             axis.EnableMomentumZooming = true;
+            axis.Style.MajorGridLineStyle.ShowMajorGridLines = false;
         }
 
 
@@ -125,6 +138,8 @@ namespace ShinobiStockChart
         {
             private List<SChartData> _dataPoints;
             private List<SChartData> _movingAverageDataPoints;
+
+            public UIColor TintColor { get; set; }
 
             public StockChartDataSource ()
             {
@@ -181,9 +196,10 @@ namespace ShinobiStockChart
                 var lineSeries = new SChartLineSeries ();
          
                 if (index == 0) {
-                    lineSeries.Style.LineColor = UIColor.FromRGB (166, 166, 166);
-                    lineSeries.Style.AreaColor = UIColor.FromRGB (16, 99, 123);
-                    lineSeries.Style.AreaColorLowGradient = UIColor.FromRGB (0, 0, 41);
+                    lineSeries.Style.AreaLineColor = TintColor;
+                    lineSeries.Style.AreaColor = TintColor.ColorWithAlpha (0.1f);
+                    lineSeries.Style.AreaColorLowGradient = TintColor.ColorWithAlpha (0.8f);
+                    lineSeries.Style.AreaLineWidth = 1.0;
                     lineSeries.Style.ShowFill = true;
                     lineSeries.CrosshairEnabled = true;
                 } else {
