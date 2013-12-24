@@ -55,6 +55,6 @@ Global
 		{FC32A77F-873F-43CA-B2F2-25894C502A24}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = ShinobiStockChart\ShinobiStockChart.csproj
+		StartupItem = ShinobiStockChart.Android\ShinobiStockChart.Android.csproj
 	EndGlobalSection
 EndGlobal

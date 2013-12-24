@@ -30,6 +30,7 @@ namespace ShinobiStockChart.Android
                 _priceSeries.Style.AreaColorGradient = Resources.GetColor (Resource.Color.chart_series1_area_low);
                 _priceSeries.Style.AreaLineColor = Resources.GetColor (Resource.Color.chart_series1_line);
                 _priceSeries.Style.FillStyle = SeriesStyle.FillStyle.Gradient;
+                _priceSeries.Style.AreaLineWidth = 1.5f;
                 _chart.AddSeries (_priceSeries);
             }
             _priceSeries.DataAdapter = new SimpleDataAdapter ();
@@ -55,6 +56,7 @@ namespace ShinobiStockChart.Android
             if(_movingAverageSeries == null) {
                 _movingAverageSeries = new LineSeries ();
                 _movingAverageSeries.Style.LineColor = Resources.GetColor (Resource.Color.chart_series2_line);
+                _movingAverageSeries.Style.LineWidth = 1.5f;
                 _chart.AddSeries (_movingAverageSeries);
             }
             _movingAverageSeries.DataAdapter = new SimpleDataAdapter ();

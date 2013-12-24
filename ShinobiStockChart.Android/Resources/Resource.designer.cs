@@ -44,6 +44,12 @@ namespace ShinobiStockChart.Android
 		public partial class Color
 		{
 			
+			// aapt resource value: 0x7f040007
+			public const int change_indicator_decreasing = 2130968583;
+			
+			// aapt resource value: 0x7f040006
+			public const int change_indicator_increasing = 2130968582;
+			
 			// aapt resource value: 0x7f040001
 			public const int chart_axis = 2130968577;
 			
