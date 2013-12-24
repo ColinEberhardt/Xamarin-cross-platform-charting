@@ -126,24 +126,29 @@ namespace ShinobiStockChart.Android
             ActionBar.SetDisplayHomeAsUpEnabled (true);
             ActionBar.SetHomeButtonEnabled (true);
             ActionBar.Title = _presenter.Title;
-
-            // Wire up the moving average button
-            var createMAButton = FindViewById<Button> (Resource.Id.createMovingAverage);
-            createMAButton.Click += (sender, e) => {
-                var maEditText = FindViewById<EditText> (Resource.Id.movingAverageLength);
-                var numberOfDays = int.Parse (maEditText.Text.ToString ());
-                MovingAverageRequested (this, new MovingAverageRequestedEventArgs (numberOfDays));
-            };
-		
         }
 
         public override bool OnOptionsItemSelected (IMenuItem item)
         {
-            if (item.ItemId == global::Android.Resource.Id.Home) {
+            switch (item.ItemId) {
+            case global::Android.Resource.Id.Home:
                 NavUtils.NavigateUpTo (this, new Intent (this, typeof(StockPriceListActivity)));
                 return true;
+            case Resource.Id.action_add_moving_average:
+                var dialog = new MovingAveragePeriodDialogFragment ((period) => {
+                    MovingAverageRequested(this, new MovingAverageRequestedEventArgs (period));
+                });
+                dialog.Show(FragmentManager, "Moving Average Dialog");
+                return true;
+            default:
+                return base.OnOptionsItemSelected (item);
             }
-            return base.OnOptionsItemSelected (item);
+        }
+
+        public override bool OnCreateOptionsMenu (IMenu menu)
+        {
+            MenuInflater.Inflate (Resource.Menu.chart_action_bar_menu, menu);
+            return base.OnCreateOptionsMenu (menu);
         }
     }
 }

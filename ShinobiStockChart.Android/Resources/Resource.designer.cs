@@ -82,10 +82,13 @@ namespace ShinobiStockChart.Android
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int ic_action_edit = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int monoandroidsplash = 2130837505;
+			public const int Icon = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int monoandroidsplash = 2130837506;
 			
 			static Drawable()
 			{
@@ -100,32 +103,29 @@ namespace ShinobiStockChart.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070005
-			public const int chart = 2131165189;
+			// aapt resource value: 0x7f080007
+			public const int action_add_moving_average = 2131230727;
 			
-			// aapt resource value: 0x7f070004
-			public const int createMovingAverage = 2131165188;
+			// aapt resource value: 0x7f080002
+			public const int chart = 2131230722;
 			
-			// aapt resource value: 0x7f070001
-			public const int linearLayout1 = 2131165185;
+			// aapt resource value: 0x7f080005
+			public const int linearLayout1 = 2131230725;
 			
-			// aapt resource value: 0x7f070003
-			public const int movingAverageLength = 2131165187;
+			// aapt resource value: 0x7f080000
+			public const int moving_average_period = 2131230720;
 			
-			// aapt resource value: 0x7f070002
-			public const int movingAverageTitle = 2131165186;
+			// aapt resource value: 0x7f080006
+			public const int stock_list = 2131230726;
 			
-			// aapt resource value: 0x7f070008
-			public const int stock_list = 2131165192;
+			// aapt resource value: 0x7f080001
+			public const int symbolTextView = 2131230721;
 			
-			// aapt resource value: 0x7f070000
-			public const int symbolTextView = 2131165184;
+			// aapt resource value: 0x7f080004
+			public const int text_price = 2131230724;
 			
-			// aapt resource value: 0x7f070007
-			public const int text_price = 2131165191;
-			
-			// aapt resource value: 0x7f070006
-			public const int text_ticker = 2131165190;
+			// aapt resource value: 0x7f080003
+			public const int text_ticker = 2131230723;
 			
 			static Id()
 			{
@@ -141,13 +141,16 @@ namespace ShinobiStockChart.Android
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int StockChartActivityLayout = 2130903040;
+			public const int MovingAveragePeriodDialogLayout = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int StockItemListViewRow = 2130903041;
+			public const int StockChartActivityLayout = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int StockPriceListActivityLayout = 2130903042;
+			public const int StockItemListViewRow = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int StockPriceListActivityLayout = 2130903043;
 			
 			static Layout()
 			{
@@ -155,6 +158,22 @@ namespace ShinobiStockChart.Android
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f070000
+			public const int chart_action_bar_menu = 2131165184;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}

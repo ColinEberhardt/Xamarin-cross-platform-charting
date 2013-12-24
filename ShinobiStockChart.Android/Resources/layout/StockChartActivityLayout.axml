@@ -15,35 +15,6 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:textStyle="bold" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1"
-        android:paddingTop="5dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp">
-        <TextView
-            android:text="Moving Average Days:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/movingAverageTitle" />
-        <EditText
-            android:inputType="number"
-            android:id="@+id/movingAverageLength"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        <Button
-            android:text="Create"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/createMovingAverage"
-            android:gravity="right" />
-    </LinearLayout>
     <fragment
         class="com.shinobicontrols.charts.ChartFragment"
         android:id="@+id/chart"

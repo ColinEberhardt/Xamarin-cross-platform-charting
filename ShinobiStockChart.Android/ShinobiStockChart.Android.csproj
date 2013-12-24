@@ -61,6 +61,7 @@
     <Compile Include="View\ChangeIndicatorTextView.cs" />
     <Compile Include="View\StockChartActivity.cs" />
     <Compile Include="Utilities\AxisExtensions.cs" />
+    <Compile Include="View\MovingAveragePeriodDialogFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -74,6 +75,12 @@
     <AndroidResource Include="Resources\layout\StockItemListViewRow.axml" />
     <AndroidResource Include="Resources\layout\StockChartActivityLayout.axml" />
     <AndroidResource Include="Resources\values\Color.xml" />
+    <AndroidResource Include="Resources\menu\chart_action_bar_menu.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\layout\MovingAveragePeriodDialogLayout.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -81,6 +88,11 @@
     <Folder Include="Service\" />
     <Folder Include="View\" />
     <Folder Include="Utilities\" />
+    <Folder Include="Resources\menu\" />
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-mdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShinobiStockChartCore\ShinobiStockChartCore.csproj">
