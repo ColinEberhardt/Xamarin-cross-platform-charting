@@ -8,7 +8,7 @@
     <ProjectGuid>{498858AE-8BB6-4746-B083-9A4330765E13}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ShinobiStockChart</RootNamespace>
+    <RootNamespace>ShinobiStockChart.Touch</RootNamespace>
     <AssemblyName>ShinobiStockChart</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
@@ -95,27 +95,27 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="StocksListViewController.cs" />
-    <Compile Include="StocksListViewController.designer.cs">
-      <DependentUpon>StocksListViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="StockItemTableCellView.cs" />
-    <Compile Include="StockItemTableCellView.designer.cs">
-      <DependentUpon>StockItemTableCellView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="StockChartViewController.cs" />
-    <Compile Include="StockChartViewController.designer.cs">
+    <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Service\AppStatusService.cs" />
+    <Compile Include="Service\MarshalInvokeService.cs" />
+    <Compile Include="Service\NavigationService.cs" />
+    <Compile Include="Views\StockChartViewController.cs" />
+    <Compile Include="Views\StockChartViewController.designer.cs">
       <DependentUpon>StockChartViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\ExtensionMethods.cs" />
-    <Compile Include="MarshalInvokeService.cs" />
-    <Compile Include="AppStatusService.cs" />
-    <Compile Include="NavigationService.cs" />
+    <Compile Include="Views\StocksListViewController.cs" />
+    <Compile Include="Views\StocksListViewController.designer.cs">
+      <DependentUpon>StocksListViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StockItemTableCellView.cs" />
+    <Compile Include="Views\StockItemTableCellView.designer.cs">
+      <DependentUpon>StockItemTableCellView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="StocksListViewController.xib" />
-    <InterfaceDefinition Include="StockItemTableCellView.xib" />
-    <InterfaceDefinition Include="StockChartViewController.xib" />
+    <InterfaceDefinition Include="Views\StockChartViewController.xib" />
+    <InterfaceDefinition Include="Views\StockItemTableCellView.xib" />
+    <InterfaceDefinition Include="Views\StocksListViewController.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -129,5 +129,9 @@
       <Project>{240E93ED-94CB-4447-BBA4-282A1B490D3E}</Project>
       <Name>ShinobiStockChart.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 </Project>

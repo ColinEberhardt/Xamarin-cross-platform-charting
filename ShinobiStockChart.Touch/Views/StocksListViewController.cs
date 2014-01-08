@@ -8,7 +8,7 @@ using System.Linq;
 using ShinobiStockChart.Core.Model;
 using ShinobiStockChart.Core.Presenter;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch.Views
 {
     /// <summary>
     /// A view controller that renders a list of stocks frm the FTSE 100 index.

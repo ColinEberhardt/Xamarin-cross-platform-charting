@@ -3,7 +3,7 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch.Views
 {
     public partial class StockItemTableCellView : UIViewController
     {

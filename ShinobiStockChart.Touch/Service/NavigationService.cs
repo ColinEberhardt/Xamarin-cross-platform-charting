@@ -2,8 +2,9 @@ using System;
 using MonoTouch.UIKit;
 using ShinobiStockChart.Core.Presenter;
 using ShinobiStockChart.Core.Presenter.Service;
+using ShinobiStockChart.Touch.Views;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch.Service
 {
     public class NavigationService : INavigationService
     {

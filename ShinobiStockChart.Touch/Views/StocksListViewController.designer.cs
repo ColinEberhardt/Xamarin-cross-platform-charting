@@ -6,7 +6,7 @@
 //
 using MonoTouch.Foundation;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch.Views
 {
 	[Register ("StocksListViewController")]
 	partial class StocksListViewController

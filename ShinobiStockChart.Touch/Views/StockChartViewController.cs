@@ -9,9 +9,9 @@ using System.Linq;
 using ShinobiStockChart.Core.Utilities;
 using ShinobiStockChart.Core.Presenter;
 using ShinobiStockChart.Core.Model;
-using ShinobiStockChart.Utilities;
+using ShinobiStockChart.Touch.Utilities;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch.Views
 {
     public partial class StockChartViewController : UIViewController, StockChartPresenter.View
     {
@@ -74,8 +74,7 @@ namespace ShinobiStockChart
 
             // create the chart and add to the view      
             _chart = new ShinobiChart (chartHostView.Bounds);
-			_chart.LicenseKey = @"<PUT YOUR LICENSE KEY HERE>";
-      
+            _chart.LicenseKey = "<PUT YOUR LICENSE KEY HERE";
             if(_chartTitle != null) {
                 _chart.Title = _chartTitle;
             }

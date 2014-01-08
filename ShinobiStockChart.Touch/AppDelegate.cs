@@ -4,8 +4,10 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using ShinobiStockChart.Core.Presenter;
+using ShinobiStockChart.Touch.Service;
+using ShinobiStockChart.Touch.Views;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to

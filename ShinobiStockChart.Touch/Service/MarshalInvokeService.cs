@@ -2,7 +2,7 @@ using System;
 using MonoTouch.Foundation;
 using ShinobiStockChart.Core.Presenter.Service;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch.Service
 {
     public class MarshalInvokeService : IMarshalInvokeService
     {

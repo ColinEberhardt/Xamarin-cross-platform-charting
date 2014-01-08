@@ -7,7 +7,7 @@
 using MonoTouch.Foundation;
 using System.CodeDom.Compiler;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch.Views
 {
 	[Register ("StockChartViewController")]
 	partial class StockChartViewController

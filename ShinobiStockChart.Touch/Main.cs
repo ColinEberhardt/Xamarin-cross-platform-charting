@@ -4,7 +4,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Touch
 {
     public class Application
     {
