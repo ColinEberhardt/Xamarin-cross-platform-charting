@@ -10,8 +10,9 @@ using Android.Views;
 using Android.Widget;
 using ShinobiStockChart.Core.Presenter.Service;
 using ShinobiStockChart.Core.Presenter;
+using ShinobiStockChart.Droid.Views;
 
-namespace ShinobiStockChart.Android.Service
+namespace ShinobiStockChart.Droid.Service
 {
     class NavigationService : INavigationService
     {

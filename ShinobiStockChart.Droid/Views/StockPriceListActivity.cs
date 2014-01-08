@@ -10,11 +10,12 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using ShinobiStockChart.Core.Presenter;
-using ShinobiStockChart.Android.Service;
+using ShinobiStockChart.Droid.Service;
 using ShinobiStockChart.Core.Model;
+using ShinobiStockChart.Droid;
 using Android.Graphics;
 
-namespace ShinobiStockChart.Android
+namespace ShinobiStockChart.Droid.Views
 {
     [Activity (MainLauncher = true)]
     public class StockPriceListActivity : Activity, StockPriceListPresenter.View

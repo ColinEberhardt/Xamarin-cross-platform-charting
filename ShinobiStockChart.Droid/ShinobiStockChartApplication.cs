@@ -9,7 +9,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace ShinobiStockChart.Android
+namespace ShinobiStockChart.Droid
 {
     [Application]
     class ShinobiStockChartApplication : Application

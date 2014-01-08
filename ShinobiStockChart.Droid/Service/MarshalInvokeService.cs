@@ -10,7 +10,7 @@ using Android.Views;
 using Android.Widget;
 using ShinobiStockChart.Core.Presenter.Service;
 
-namespace ShinobiStockChart.Android.Service
+namespace ShinobiStockChart.Droid.Service
 {
     class MarshalInvokeService : IMarshalInvokeService
     {

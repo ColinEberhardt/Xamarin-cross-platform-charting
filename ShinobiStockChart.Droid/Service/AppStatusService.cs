@@ -10,7 +10,7 @@ using Android.Views;
 using Android.Widget;
 using ShinobiStockChart.Core.Presenter.Service;
 
-namespace ShinobiStockChart.Android
+namespace ShinobiStockChart.Droid.Service
 {
     class AppStatusService : IAppStatusService
     {

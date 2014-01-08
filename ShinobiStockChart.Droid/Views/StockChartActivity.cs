@@ -10,12 +10,12 @@ using Android.Views;
 using Android.Widget;
 using ShinobiStockChart.Core.Presenter;
 using Com.ShinobiControls.Charts;
-using ShinobiStockChart.Android.Utilities;
+using ShinobiStockChart.Droid.Utilities;
 using Android.Support.V4.App;
 using Android.Graphics;
 using ShinobiStockChart.Core.Model;
 
-namespace ShinobiStockChart.Android
+namespace ShinobiStockChart.Droid.Views
 {
     [Activity (Label = "StockChartActivity")]			
     public class StockChartActivity : Activity, StockChartPresenter.View
@@ -101,7 +101,7 @@ namespace ShinobiStockChart.Android
             var chartFrag = FragmentManager.FindFragmentById<ChartFragment> (Resource.Id.chart);
             _chart = chartFrag.ShinobiChart;
             _chart.SetLicenseKey ("<PUT YOUR LICENSE KEY HERE>");
-		
+
             _chart.XAxis = new DateTimeAxis ();
             _chart.XAxis.EnableGestures ();
             _chart.YAxis = new NumberAxis ();
@@ -132,7 +132,7 @@ namespace ShinobiStockChart.Android
         public override bool OnOptionsItemSelected (IMenuItem item)
         {
             switch (item.ItemId) {
-            case global::Android.Resource.Id.Home:
+            case Android.Resource.Id.Home:
                 NavUtils.NavigateUpTo (this, new Intent (this, typeof(StockPriceListActivity)));
                 return true;
             case Resource.Id.action_add_moving_average:
