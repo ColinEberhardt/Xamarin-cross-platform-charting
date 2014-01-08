@@ -9,9 +9,9 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using ShinobiStockChart.Presenter;
+using ShinobiStockChart.Core.Presenter;
 using ShinobiStockChart.Android.Service;
-using ShinobiStockChart.Model;
+using ShinobiStockChart.Core.Model;
 using Android.Graphics;
 
 namespace ShinobiStockChart.Android

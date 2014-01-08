@@ -1,6 +1,6 @@
 using System;
 
-namespace ShinobiStockChart.Model
+namespace ShinobiStockChart.Core.Model
 {
     // a data item that represents a single stock
     public class StockItem

@@ -1,6 +1,6 @@
 using System;
 
-namespace ShinobiStockChart
+namespace ShinobiStockChart.Core.Model
 {
     public class ChartDataPoint
     {

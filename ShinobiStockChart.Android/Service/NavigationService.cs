@@ -8,8 +8,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using ShinobiStockChart.Presenter.Service;
-using ShinobiStockChart.Presenter;
+using ShinobiStockChart.Core.Presenter.Service;
+using ShinobiStockChart.Core.Presenter;
 
 namespace ShinobiStockChart.Android.Service
 {

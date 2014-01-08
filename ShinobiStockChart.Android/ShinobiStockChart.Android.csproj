@@ -95,9 +95,9 @@
     <Folder Include="Resources\drawable-xxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShinobiStockChartCore\ShinobiStockChartCore.csproj">
+    <ProjectReference Include="..\ShinobiStockChart.Core\ShinobiStockChart.Core.csproj">
       <Project>{240E93ED-94CB-4447-BBA4-282A1B490D3E}</Project>
-      <Name>ShinobiStockChartCore</Name>
+      <Name>ShinobiStockChart.Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

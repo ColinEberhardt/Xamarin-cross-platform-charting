@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ShinobiStockChart.Utilities
+namespace ShinobiStockChart.Core.Utilities
 {
     public static class ExtensionMethods
     {

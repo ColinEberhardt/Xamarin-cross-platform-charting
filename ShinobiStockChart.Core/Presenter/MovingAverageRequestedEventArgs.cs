@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShinobiStockChart.Presenter
+namespace ShinobiStockChart.Core.Presenter
 {
     public class MovingAverageRequestedEventArgs : EventArgs
     {

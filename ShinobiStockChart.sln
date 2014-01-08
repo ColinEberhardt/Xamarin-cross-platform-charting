@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinobiStockChart", "ShinobiStockChart\ShinobiStockChart.csproj", "{498858AE-8BB6-4746-B083-9A4330765E13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinobiStockChartCore", "ShinobiStockChartCore\ShinobiStockChartCore.csproj", "{240E93ED-94CB-4447-BBA4-282A1B490D3E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinobiStockChart.Android", "ShinobiStockChart.Android\ShinobiStockChart.Android.csproj", "{FC32A77F-873F-43CA-B2F2-25894C502A24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinobiStockChart.Core", "ShinobiStockChart.Core\ShinobiStockChart.Core.csproj", "{240E93ED-94CB-4447-BBA4-282A1B490D3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +55,6 @@ Global
 		{FC32A77F-873F-43CA-B2F2-25894C502A24}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = ShinobiStockChart.Android\ShinobiStockChart.Android.csproj
+		StartupItem = ShinobiStockChart\ShinobiStockChart.csproj
 	EndGlobalSection
 EndGlobal

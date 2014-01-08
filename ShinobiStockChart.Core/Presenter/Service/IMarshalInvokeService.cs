@@ -1,6 +1,6 @@
 using System;
 
-namespace ShinobiStockChart.Presenter.Service
+namespace ShinobiStockChart.Core.Presenter.Service
 {
     /// <summary>
     /// A service which marshals incocations onto the UI thread

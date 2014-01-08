@@ -8,11 +8,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using ShinobiStockChart.Presenter;
+using ShinobiStockChart.Core.Presenter;
 using Com.ShinobiControls.Charts;
 using ShinobiStockChart.Android.Utilities;
 using Android.Support.V4.App;
 using Android.Graphics;
+using ShinobiStockChart.Core.Model;
 
 namespace ShinobiStockChart.Android
 {

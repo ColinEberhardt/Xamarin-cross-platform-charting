@@ -6,8 +6,10 @@ using MonoTouch.UIKit;
 using ShinobiCharts;
 using System.Net;
 using System.Linq;
+using ShinobiStockChart.Core.Utilities;
+using ShinobiStockChart.Core.Presenter;
+using ShinobiStockChart.Core.Model;
 using ShinobiStockChart.Utilities;
-using ShinobiStockChart.Presenter;
 
 namespace ShinobiStockChart
 {

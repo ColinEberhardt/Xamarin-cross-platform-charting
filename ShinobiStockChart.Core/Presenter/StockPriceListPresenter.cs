@@ -1,12 +1,12 @@
 using System;
-using ShinobiStockChart.Model;
+using ShinobiStockChart.Core.Model;
 using System.Net;
 using System.Collections.Generic;
 using System.Linq;
-using ShinobiStockChart.Presenter.Service;
+using ShinobiStockChart.Core.Presenter.Service;
 using System.IO;
 
-namespace ShinobiStockChart.Presenter
+namespace ShinobiStockChart.Core.Presenter
 {
     public class StockPriceListPresenter : BasePresenter
     {
