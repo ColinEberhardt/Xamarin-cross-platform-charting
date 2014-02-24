@@ -19,7 +19,7 @@
             android:id="@+id/text_ticker"
             android:textStyle="bold"
             android:textSize="20dp" />
-        <ShinobiStockChart.Android.ChangeIndicatorTextView
+        <ShinobiStockChart.Droid.Views.ChangeIndicatorTextView
             android:text="23.555"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
