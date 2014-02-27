@@ -21,6 +21,8 @@ namespace ShinobiStockChart.Core.Presenter
 
         private View _view;
 
+        private IDataSource _dataSource = new WebDataSource();
+
         private IAppStatusService _statusService;
 
         private IMarshalInvokeService _marshalInvoke;
@@ -63,25 +65,14 @@ namespace ShinobiStockChart.Core.Presenter
         {
             _statusService.NetworkActivityIndicatorVisible = true;
 
-            string url = "http://finance.yahoo.com/d/quotes.csv?f=sac1k&s=";      
-            url += string.Join ("+", _stocks.Select (s => s.Symbol));
-
-
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create (url);
-            webRequest.BeginGetResponse (new AsyncCallback (ReceiveStockQuotes), webRequest);
+            _dataSource.FetchStockList (csv => ParseStockQuotes (csv));
         }
 
-        private void ReceiveStockQuotes(IAsyncResult result)
-        {
-            HttpWebResponse response = (HttpWebResponse)((HttpWebRequest)result.AsyncState).EndGetResponse(result);
-            var body = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            ParseStockQuotes (body);
-        }
 
         private void ParseStockQuotes (string quotesCSV)
         {
             // split each line
-            var lines = quotesCSV.Split ('\n');
+            var lines = quotesCSV.Split (new char[] { '\n', '\r' });
             foreach (var line in lines) {
                 // fail fast on any stocks that lack prices
                 if (line.Contains ("N/A"))

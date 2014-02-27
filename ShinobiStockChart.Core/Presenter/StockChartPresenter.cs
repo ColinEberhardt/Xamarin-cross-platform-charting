@@ -26,6 +26,8 @@ namespace ShinobiStockChart.Core.Presenter
 
         private IMarshalInvokeService _marshalInvoke;
 
+        private IDataSource _dataSource = new WebDataSource();
+
         private View _view;
 
         private List<ChartDataPoint> _chartData;
@@ -74,21 +76,14 @@ namespace ShinobiStockChart.Core.Presenter
 
         private void FetchPriceData (string symbol)
         {
-            _statusService.NetworkActivityIndicatorVisible = true;
-
-            string url = "http://ichart.finance.yahoo.com/table.csv?d=0&e=28&f=2013&g=d&a=3&b=12&c=1996&ignore=.csv&s="
-                         + symbol;
-
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create (url);
-            webRequest.BeginGetResponse (new AsyncCallback (ReceivePriceData), webRequest);
+            _dataSource.FetchStockData (symbol, data => {
+                ReceivePriceData(data);
+            });
         }
 
-        private void ReceivePriceData(IAsyncResult result)
+        private void ReceivePriceData(string csvData)
         {
-            HttpWebResponse response = (HttpWebResponse)((HttpWebRequest)result.AsyncState).EndGetResponse(result);
-
-            var body = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            _chartData = ParseCSVStockPrices (body); 
+            _chartData = ParseCSVStockPrices (csvData); 
 
             _marshalInvoke.Invoke (() => {
                 _statusService.NetworkActivityIndicatorVisible = false;
@@ -100,7 +95,7 @@ namespace ShinobiStockChart.Core.Presenter
         {
             var seriesData = new List<ChartDataPoint> ();
 
-            var lines = csvData.Split ('\n');
+            var lines = csvData.Split (new char[] { '\n', '\r' });
             foreach (var line in lines.Skip(1)) {
                 var components = line.Split (',');
                 if (components.Length > 1) {

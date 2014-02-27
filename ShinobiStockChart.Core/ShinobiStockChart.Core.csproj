@@ -44,9 +44,21 @@
     <Compile Include="Presenter\StockSelectedEventArgs.cs" />
     <Compile Include="Presenter\MovingAverageRequestedEventArgs.cs" />
     <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Model\WebDataSource.cs">
+      <DependentUpon>StockList.csv</DependentUpon>
+    </Compile>
+    <Compile Include="Model\IDataSource.cs" />
+    <Compile Include="Model\FileDataSource.cs" />
+    <Compile Include="Model\ResourceLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Utilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\ChartData.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model\StockList.csv" />
   </ItemGroup>
 </Project>
